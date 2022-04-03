@@ -1,0 +1,30 @@
+{
+  "name": "stevens_social_network",
+  "version": "1.0.0",
+  "description": "Web Programing final Project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "seed": "node ./tasks/seed.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deeppatel074/stevens_social_network.git"
+  },
+  "author": "Ved Bhanushali - 20009430, Jesica Bodas - 20008882, Deepkumar Patel - 20009064, Vyaqti Vikas Singh - 10479037",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/deeppatel074/stevens_social_network/issues"
+  },
+  "homepage": "https://github.com/deeppatel074/stevens_social_network#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
+    "express": "^4.17.3",
+    "express-handlebars": "^6.0.3",
+    "express-session": "^1.17.2",
+    "mongodb": "^4.4.1",
+    "nodemon": "^2.0.15"
+  }
+}
