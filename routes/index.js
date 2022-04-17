@@ -1,11 +1,9 @@
-const pagesRoutes = require('./pages');
-
-
 const constructorMethod = (app) => {
-  app.use('/', pagesRoutes);
-  app.use('*', (req, res) => {
-    res.redirect('/');
-  });
+
+
+    app.use('*', (req, res) => {
+        res.status(404).json({ error: "Not Found!!" });
+    });
 };
 
-module.exports = constructorMethod;
+module.exports = constructorMethod
