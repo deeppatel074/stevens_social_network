@@ -3,7 +3,7 @@ To start the server simply follow following steps:
 - npm install
 - npm run seed
 - npm start
-## Group Members:
+## Group 31 Members:
 1. Ved Bhanushali - 20009430
 2. Jesica Bodas - 20008882
 3. Deepkumar Patel - 20009064
