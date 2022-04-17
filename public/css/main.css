@@ -1,0 +1,89 @@
+body {
+  background: #f7f3f3;
+  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+  font-size: 15pt;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+  background-color: #111;
+}
+.active {
+  background-color: #04AA6D;
+}
+
+li {
+  border-right: 1px solid #bbb;
+}
+
+li:last-child {
+  border-right: none;
+}
+
+ul {
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+}
+
+ul {
+  border: 1px solid #555;
+}
+
+li {
+  text-align: center;
+  border-bottom: 1px solid #555;
+}
+
+li:last-child {
+  border-bottom: none;
+}
+
+li a {
+  display: block;
+}
+
+li a {
+  display: block;
+}
+
+main {
+  max-width: 90%;
+  margin: auto;
+}
+
+header {
+  border-bottom: 1px solid #afafaf;
+} 
+
+footer {
+	position: fixed;
+	bottom: 0;
+	font-size: 20pt;
+	font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+	color: #ff0000;
+}
+
+
+
+
