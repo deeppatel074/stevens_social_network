@@ -1,0 +1,20 @@
+<nav class = "log-in">
+     <a href = "/signup">Need to register? Click here to sign-up</a>
+</nav>
+<h1> LOG IN</h1>
+<form id = "login-form" action="/login" method="POST" >
+    <div>
+        <label>Email </label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="Stevens Email" value='{{email}}' required>
+    </div>
+    <div>
+        <label>Password</label>
+        <input type ="password" class="form-control" id="password" name ="password" placeholder="Password" value='{{password}}' required>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-default">Submit</button>
+    </div>
+</form>
+{{#if hasErrors}}
+<p class="errors"> {{errors}}</p>
+{{/if}}

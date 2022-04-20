@@ -15,5 +15,5 @@ const getCollectionFn = (collection) => {
 
 
 module.exports = {
-
+    students : getCollectionFn('students')
 };
