@@ -1,117 +1,68 @@
 body {
-    background: #fbecec;
-    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
-    font-size: 15pt;
-  }
-  
-  main {
-    max-width: 75%;
-    margin: auto;
-  }
-  
-  header {
-    border-bottom: 3px solid #9d8484;
-  }
-  
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    color: #333;
-    margin-bottom: 5px;
-  }
-
-  h1{
-      font-weight: bolder;
-      font-size: xx-large;
-      display: flex;
-   justify-content: center;
-  }
-  p {
-    font-size: 1rem;
-    line-height: 2;
-  }
-  
-.form-group label {
-    display: inline-block;
-    max-width: 100%;
-    font-weight: bolder;
-    font-size: xx-large;
-    
+  background-color: #344a72;
+  font-family: "Roboto", sans-serif;
 }
 
-
-.errors{
-    color:#ff3d00;
-    font-weight: bolder;
-    display: flex;
-   justify-content: center;
+.signup-box {
+  width: 360px;
+  height: 650px;
+  margin: auto;
+  background-color: white;
+  border-radius: 3px;
 }
 
-footer{
-    margin: 50px;
-    font-weight:lighter;
-    align-self: center;
-    display: block;
-   justify-content: center;
-
+.login-box {
+  width: 360px;
+  height: 280px;
+  margin: auto;
+  border-radius: 3px;
+  background-color: white;
 }
 
-.form-group{
-   text-align:center;
+h1 {
+  text-align: center;
+  padding-top: 15px;
 }
 
-.form-control {
-        display: block;
-        width: 30%; 
-        font-size: 14px;
-        color: #555;
-        border: 4px solid #efcefc;
-        border-radius: 10px;
-        margin: auto;
-        text-align: center;
+form {
+  width: 300px;
+  margin-left: 20px;
 }
 
-
-.btn {
-    padding: 6px 12px;
-    border: 3px solid #db19b742;
-    border-radius: 20px;
-    background: #84407f7d;
-    color:#ffffff;
-    margin-top : 30px;
-
+form label {
+  display: flex;
+  margin-top: 20px;
+  font-size: 18px;
 }
 
-label{
-    display: flex;
-   justify-content: center;
-   margin: auto;
-   margin-top:20px;
+form input {
+  width: 100%;
+  padding: 7px;
+  border: none;
+  border: 1px solid gray;
+  border-radius: 6px;
+  outline: none;
 }
-
-#sign-up {
-    display : flex;
-    justify-content: center;
+input[type="button"] {
+  width: 320px;
+  height: 35px;
+  margin-top: 20px;
+  border: none;
+  background-color: #49c1a2;
+  color: white;
+  font-size: 18px;
 }
-
-#log-in{
-    display : flex;
-    justify-content: center;
-    margin-left: 5px;
+p {
+  text-align: center;
+  padding-top: 20px;
+  font-size: 15px;
 }
-
-#sign-up a{
-    margin-right : 967px;
-    margin-top : 20px;
+.para-2 {
+  text-align: center;
+  color: white;
+  font-size: 15px;
+  margin-top: -10px;
 }
-
-#log-in a{
-    margin-top: 20px;
-    margin-right: 940px
+.para-2 a {
+  color: #49c1a2;
 }
-
-
-
