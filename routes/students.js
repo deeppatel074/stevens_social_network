@@ -13,7 +13,7 @@ router
                 return;
             }
             else {
-                res.render("students/login", {
+                res.render("pages/login", {
                     title: "Log In"
                 });
                 return;
@@ -34,7 +34,7 @@ router
             email = await valid.validateEmail(email);
             await valid.validatePassword(password);
         } catch (e) {
-            res.status(400).render("students/login", {
+            res.status(400).render("pages/login", {
                 title: "Errors",
                 hasErrors: true,
                 errors: e,
@@ -59,7 +59,7 @@ router
 
             }
         } catch (e) {
-            res.status(400).render("students/login", {
+            res.status(400).render("pages/login", {
                 title: "Errors",
                 hasErrors: true,
                 errors: e
@@ -75,7 +75,7 @@ router
     .get(async (req, res) => {
         try {
             if (!req.session.user) {
-                res.status(200).render("students/signup", {
+                res.status(200).render("pages/signup", {
                     title: "Sign up"
                 });
                 return;
@@ -92,8 +92,7 @@ router
 
     .post(upload.single("profileUrl"), async (req, res) => {
         const studentPostData = req.body;
-        console.log(req.file);
-        let profilePic = req.file.originalname;
+        let profilePic = req.file.path;
 
         try {
             studentPostData.firstName = await valid.checkString(studentPostData.firstName, "firstName");
@@ -103,7 +102,7 @@ router
             await valid.validatePassword(studentPostData.password);
             await valid.validateConfirmPassword(studentPostData.password, studentPostData.confirmPassword);
         } catch (e) {
-            res.status(400).render("students/signup", {
+            res.status(400).render("pages/signup", {
                 title: "Errors",
                 hasErrorsSign: true,
                 errors: e,
@@ -123,7 +122,7 @@ router
                 return;
             }
         } catch (e) {
-            res.status(400).render("students/signup", {
+            res.status(400).render("pages/signup", {
                 title: "Errors",
                 hasErrorsSign: true,
                 errors: e,

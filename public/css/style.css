@@ -5,16 +5,16 @@ body {
 
 .signup-box {
   width: 360px;
-  height: 650px;
   margin: auto;
+  padding-bottom: 30px;
   background-color: white;
   border-radius: 3px;
 }
 
 .login-box {
   width: 360px;
-  height: 280px;
   margin: auto;
+  padding-bottom: 30px;
   border-radius: 3px;
   background-color: white;
 }
@@ -43,26 +43,53 @@ form input {
   border-radius: 6px;
   outline: none;
 }
-input[type="button"] {
+
+button {
   width: 320px;
   height: 35px;
   margin-top: 20px;
   border: none;
   background-color: #49c1a2;
+  border: 1px solid gray;
+  border-radius: 6px;
   color: white;
   font-size: 18px;
 }
+
 p {
   text-align: center;
   padding-top: 20px;
   font-size: 15px;
 }
+
 .para-2 {
   text-align: center;
   color: white;
   font-size: 15px;
   margin-top: -10px;
 }
+
 .para-2 a {
   color: #49c1a2;
+}
+
+.alert {
+  padding: 9px;
+  background-color: #f44336;
+  color: white;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
 }
