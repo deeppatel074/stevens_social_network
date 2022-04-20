@@ -1,36 +1,41 @@
-
-<nav class = "sign-up">
-     <a href = "/">Already have an account? Click here to log-in</a>
+<nav class="sign-up">
+    <a href="/">Already have an account? Click here to log-in</a>
 </nav>
 <h1> SIGN UP</h1>
-<form id = "signup-form" action="/signup" method="POST" >
+<form id="signup-form" action="/signup" method="POST" enctype="multipart/form-data">
     <div>
         <label>First Name</label>
-        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" value="{{studentPostData.firstName}}" required>
+        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name"
+            value="{{studentPostData.firstName}}" required>
     </div>
     <div>
         <label>Last Name</label>
-        <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" value="{{studentPostData.lastName}}" required>
+        <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name"
+            value="{{studentPostData.lastName}}" required>
     </div>
     <div>
         <label>Email </label>
-        <input type="email" class="form-control" id="email" name="email" placeholder="Stevens Email" value="{{studentPostData.email}}" required>
+        <input type="email" class="form-control" id="email" name="email" placeholder="Stevens Email"
+            value="{{studentPostData.email}}" required>
     </div>
     <div>
         <label>Password</label>
-        <input type ="password" class="form-control" id="password" name ="password" placeholder="Password" value="{{studentPostData.password}}" required >
+        <input type="password" class="form-control" id="password" name="password" placeholder="Password"
+            value="{{studentPostData.password}}" required>
     </div>
     <div>
         <label>Confirm Password</label>
-        <input type ="password" class="form-control" id="confirmPassword" name ="confirmPassword" placeholder="Enter Password Again" value= "" required>
+        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+            placeholder="Enter Password Again" value="" required>
     </div>
     <div>
         <label>Phone Number</label>
-        <input type class = "form-control" id="phoneNumber" name="phoneNumber" placeholder="Phone Number" value="{{studentPostData.phoneNumber}}" required>
+        <input type class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Phone Number"
+            value="{{studentPostData.phoneNumber}}" required>
     </div>
     <div id="profile-container">
         <label>Profile Picture</label>
-        <input type="file" class= "form-control" id="profileUrl" name="profileUrl" placeholder="Profile Picture"  capture>
+        <input type="file" class="form-control" id="profileUrl" name="profileUrl" placeholder="Profile Picture" capture>
     </div>
     <div class="form-group">
         <button type="submit" class="btn btn-default">Submit</button>
@@ -39,5 +44,3 @@
 {{#if hasErrorsSign}}
 <p class="errors"> {{errors}}</p>
 {{/if}}
-
-
