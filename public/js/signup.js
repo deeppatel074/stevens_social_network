@@ -80,7 +80,7 @@
         }
 
         if (!hasErrors) {
-            loginForm.unbind().submit();
+            signupForm.unbind().submit();
         } else {
             submitButton.prop('disabled', false);
         }
