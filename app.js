@@ -8,9 +8,9 @@ const static = express.static(__dirname + '/public');
 
 app.use('/public', static);
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
-app.engine('handlebars', exphbs.engine({defaultLayout: 'main'}));
+app.engine('handlebars', exphbs.engine({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
 
@@ -21,7 +21,7 @@ app.use(
     secret: 'some secret string!',
     resave: false,
     saveUninitialized: true
-}))
+  }))
 
 
 
@@ -39,11 +39,11 @@ app.use(async (req, res, next) => {
   let requestMethod = req.method;
   let requestRoute = req.originalUrl;
   let authenticated;
-  if(req.session.user){
-    authenticated = "Authenticated User"; 
-  }else{
+  if (req.session.user) {
+    authenticated = "Authenticated User";
+  } else {
     authenticated = "Non-Authenticated User "
-  } 
+  }
   let log = `[ ${currentTimeStamp} ] : ${requestMethod}  ${requestRoute} ( ${authenticated})`;
   console.log(log);
   next();
@@ -57,6 +57,8 @@ configRoutes(app);
 
 
 app.listen(3000, () => {
-  console.log("We've now got a server!");
-  console.log('Your routes will be running on http://localhost:3000');
+  console.log('Yep this is working 🍺');
+  console.log("We've now got a server 🦄");
+  console.log('App listen on port: 3000 🍕');
+  console.log('Server Url:  http://localhost:3000')
 });

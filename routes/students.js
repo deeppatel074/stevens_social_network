@@ -1,19 +1,23 @@
 const express = require('express');
 const router = express.Router();
-const valid = require("../tasks/valid")
+const valid = require("../data/valid");
 const studentData = require("../data/students");
-const upload = require('../config/multer')
+const upload = require('../config/multer');
+const xss = require('xss');
 
 router
     .route('/')
     .get(async (req, res) => {
         try {
             if (req.session.user) {
-                res.redirect("/private");
+                res.render("events/eventsList", {
+                    title: "Events",
+                    logged: true
+                });
                 return;
             }
             else {
-                res.render("pages/login", {
+                res.render("students/login", {
                     title: "Log In"
                 });
                 return;
@@ -34,7 +38,7 @@ router
             email = await valid.validateEmail(email);
             await valid.validatePassword(password);
         } catch (e) {
-            res.status(400).render("pages/login", {
+            res.status(400).render("students/login", {
                 title: "Errors",
                 hasErrors: true,
                 errors: e,
@@ -45,10 +49,10 @@ router
         }
 
         try {
-            let student = await studentData.checkStudent(email, password);
+            let student = await studentData.checkStudent(xss(email), xss(password));
             if (student.authenticated == true) {
                 req.session.user = { email: email };
-                res.redirect('/private');
+                return res.redirect('/events');
                 return;
             }
             if (student.authenticated == false && !e) {
@@ -59,7 +63,7 @@ router
 
             }
         } catch (e) {
-            res.status(400).render("pages/login", {
+            res.status(400).render("students/login", {
                 title: "Errors",
                 hasErrors: true,
                 errors: e
@@ -75,12 +79,12 @@ router
     .get(async (req, res) => {
         try {
             if (!req.session.user) {
-                res.status(200).render("pages/signup", {
+                res.status(200).render("students/signup", {
                     title: "Sign up"
                 });
                 return;
             } else {
-                res.status(200).redirect("/private");
+                return res.redirect('/events');
                 return;
             }
 
@@ -102,7 +106,7 @@ router
             await valid.validatePassword(studentPostData.password);
             await valid.validateConfirmPassword(studentPostData.password, studentPostData.confirmPassword);
         } catch (e) {
-            res.status(400).render("pages/signup", {
+            res.status(400).render("students/signup", {
                 title: "Errors",
                 hasErrorsSign: true,
                 errors: e,
@@ -113,16 +117,16 @@ router
 
         try {
             // const {firstName, lastName,email,password,phoneNumber,profileUrl} =  studentPostData
-            let student = await studentData.createStudent(studentPostData.firstName, studentPostData.lastName, studentPostData.email, studentPostData.password, studentPostData.phoneNumber, profilePic);
+            let student = await studentData.createStudent(xss(studentPostData.firstName), xss(studentPostData.lastName), xss(studentPostData.email), xss(studentPostData.password), xss(studentPostData.phoneNumber), xss(profilePic));
             if (student.studentInserted == true) {
-                res.redirect('/');
+                res.redirect('/events');
                 return;
             } if (student.studentInserted == false && !e) {
                 res.status(500).json({ Error: "Internal Server Error" });
                 return;
             }
         } catch (e) {
-            res.status(400).render("pages/signup", {
+            res.status(400).render("students/signup", {
                 title: "Errors",
                 hasErrorsSign: true,
                 errors: e,
@@ -131,23 +135,6 @@ router
             return;
         }
     });
-
-//Redirect to home page 
-
-router
-    .route("/private")
-    .get(async (req, res) => {
-        if (req.session.user) {
-            // let profile = await studentData.getProfileUrl(req.session.user.email);
-            res.status(200).render("students/private", {
-                email: req.session.user.email,
-                title: "Private",
-
-            })
-            return;
-        }
-    })
-
 
 //Logout
 
@@ -160,9 +147,7 @@ router
                     res.status(400).send('Unable to log out')
                     return;
                 } else {
-                    res.render("students/logout", {
-                        title: "Logout"
-                    });
+                    res.redirect('/')
                     return;
 
                 }

@@ -4,7 +4,7 @@ const students = mongoCollections.students;
 const { ObjectId } = require('mongodb');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-const valid = require("../tasks/valid");
+const valid = require("./valid");
 
 module.exports = {
     async createStudent(firstName, lastName, email, password, phoneNumber, profileUrl) {
@@ -28,7 +28,7 @@ module.exports = {
             createdAt: new Date()
         };
         const studentsCollection = await students();
-        const student = await studentsCollection.findOne({ email: email });
+        const student = await studentsCollection.findOne({ email: { '$regex': `^${email}$`, '$options': 'i' } });
         if (student) {
             throw `Student email ID  is already being used`;
         }
@@ -45,7 +45,7 @@ module.exports = {
         email = await valid.validateEmail(email);
         await valid.validatePassword(password);
         const studentsCollection = await students();
-        const student = await studentsCollection.findOne({ email: email });
+        const student = await studentsCollection.findOne({ email: { '$regex': `^${email}$`, '$options': 'i' } });
         if (!student) {
             throw `Either the email or password is invalid`;
         }
@@ -60,7 +60,7 @@ module.exports = {
 
     async getProfileUrl(email) {
         const studentsCollection = await students();
-        const student = await studentsCollection.findOne({ email: email });
+        const student = await studentsCollection.findOne({ email: { '$regex': `^${email}$`, '$options': 'i' } });
         if (student) {
             student.profileUrl = student.profileUrl.replace(/ \ /, "/");
             return (student.profileUrl)
