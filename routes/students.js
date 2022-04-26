@@ -53,7 +53,7 @@ router
             if (student.authenticated == true) {
                 req.session.user = { email: email };
                 return res.redirect('/events');
-                return;
+                
             }
             if (student.authenticated == false && !e) {
                 res.status(500).json(
@@ -85,7 +85,6 @@ router
                 return;
             } else {
                 return res.redirect('/events');
-                return;
             }
 
         } catch (e) {

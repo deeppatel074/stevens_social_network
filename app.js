@@ -27,9 +27,7 @@ app.use(
 
 app.use('/private', (req, res, next) => {
   if (!req.session.user) {
-    res.status(403).render("students/notLogIn", {
-      title: "Not Logged In?"
-    })
+    res.status(403).send("Not Logged In");
   }
   next();
 });

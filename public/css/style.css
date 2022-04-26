@@ -20,6 +20,14 @@ body {
   background-color: white;
 }
 
+.event-register-box{
+  width: 360px;
+  margin: auto;
+  padding-bottom: 30px;
+  border-radius: 3px;
+  background-color: white;
+
+}
 h1 {
   text-align: center;
   padding-top: 15px;
