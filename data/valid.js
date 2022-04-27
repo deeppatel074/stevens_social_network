@@ -77,9 +77,18 @@ module.exports = {
         }
     },
     async validateLimit(participantLimit){
+        if(!participantLimit)
+        {
+            throw `Enter Participant Limit`;
+        }
+        if(isNaN(participantLimit)){
+            throw `Participant Limit should be a number`;
+        }
+        participantLimit = Number(participantLimit);
         if(participantLimit < 2){
             throw `Limit can't be less than 2`;
         }
+        return(participantLimit)
     },
 
     async validateEventDate(eventDate){
@@ -147,8 +156,30 @@ module.exports = {
         format = format.replace("dd", day.toString().padStart(2,"0"));
 
     return format;
-}
+},
 
+async validateEventEntryPrice(price){
+    if(!price)
+    {
+        throw `Enter Price`;
+    }
+    if(isNaN(price)){
+        throw `Price should be a number`;
+    }
+    price = Number(price);
+    if(price < 0){
+        throw `Price can't be a number less than 0`
+    }
+    return(price);
+},
+
+async validateUSZip(zip) {
+    let result =  /^\d{5}(-\d{4})?$/.test(zip);
+    if(result == false){
+        throw `Zip Code is not valid`;
+
+    }
+}
 
 }
 

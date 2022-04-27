@@ -7,13 +7,25 @@ const valid = require("./valid");
 
 
 module.exports = {
-    async createEvents (title,description,eventDate, participantLimit,bannerUrl,createdByEmail){
+    async createEvents (title,description,eventDate,eventEntryPrice, street,apartmentNumber,city,state,zip, participantLimit,bannerUrl,createdByEmail){
         title = await valid.checkString(title,"title");
         description = await valid.checkString(description,"description");
         await valid.validateEventDate(eventDate);
         eventDate = await valid.dateFormat(eventDate, "mm-dd-yyyy" );
-        await valid.validateLimit(participantLimit);
+        participantLimit = await valid.validateLimit(participantLimit);
+        eventEntryPrice = await valid.validateEventEntryPrice(eventEntryPrice);
         bannerUrl = await valid.checkString(bannerUrl,"bannerUrl");
+        street = await valid.checkString(street,"street");
+        // apartmentNumber = await valid.checkString(apartmentNumber, "Apartment Number");
+        city = await valid.checkString(city,"city");
+        state = await valid.checkString(state,"state");
+        await valid.validateUSZip(zip);
+        let eventLocation ="";
+        if(apartmentNumber != ""){
+            eventLocation = street + "," + apartmentNumber + "," + city +","+ state +","+ zip;
+        }else{
+            eventLocation = street +  "," + city +","+ state +","+ zip;
+        }
         
         let utc = new Date()
        
@@ -26,6 +38,13 @@ module.exports = {
             title : title,
             description : description,
             eventDate : eventDate,
+            eventEntryPrice : eventEntryPrice,
+            eventLocation: eventLocation,
+            street: street,
+            apartmentNumber :  apartmentNumber,
+            city : city,
+            state : state,
+            zip : zip,
             participants: [ ],
             participantLimit : participantLimit,
             bannerUrl : bannerUrl,

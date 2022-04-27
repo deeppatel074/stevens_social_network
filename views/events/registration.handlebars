@@ -15,9 +15,28 @@
    
         <label for="eventDate" >Event Date </label>
         <input type="date"  id="eventDate" name="eventDate" placeholder="Event Date" value="{{eventsPostData.eventDate}}" required>
+
+        <label for = "eventEntryPrice">Entry Price ($)</label>
+        <input type="number"  min="0" step="any" id="eventEntryPrice" name="eventEntryPrice" placeholder="Entry Price" value = "{{eventsPostData.participantLimit}}" required/>
+
+        <label for="Event Location">Event Location</label>
+        <label for="street">Street</label>
+        <input type="street"  id="street" name="street" placeholder="Street" required>
+
+        <label for ="apartmentNumber" > Apartment Number</label>
+        <input type = "text" id="apartmentNumber" name = "apartmentNumber" placeholder="Apartment Number">
+
+        <label for = "city">City</label>
+        <input type="city"  id="city" name = "city" placeholder="City" required>
+  
+        <label for = "state">State</label>
+        <input type="state"  id="state" name = "state" placeholder="State" required>
+
+        <label for = "zip">Zip Code</label>
+        <input type="zip"  id="zip" name="zip" placeholder="Zip Code" required>
     
         <label for "participantLimit">Participant Limit</label>
-        <input type ="number" id="participantLimit" name ="participantLimit" placeholder="Participant Limit " value="{{eventsPostData.participantLimit}}" required >
+        <input type ="number" min="2" id="participantLimit" name ="participantLimit" placeholder="Participant Limit " value="{{eventsPostData.participantLimit}}" required >
 
         <label for ="bannerUrl">Upload Banner Picture</label>
         <input type="file"  id="bannerUrl" name="bannerUrl" placeholder="Banner Image"  capture>
