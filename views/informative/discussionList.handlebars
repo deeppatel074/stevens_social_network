@@ -1,23 +1,185 @@
-<main>
-    <div class="info-search">
-        <form id="search-form" action="" method="">
-            <label id="searchLabel" for="searchDiscussion">
-                <input placeholder="Search a keyword here..." type="text" name="searchDiscussion"
-                    id="searchDiscussion" />
-            </label>
+<div class="row">
+    <!--Aside Section-->
+    <div class="col-12  col-xl-3">
+        <aside>
+            <div class="row">
+                <div class="col-12 col-sm-6 col-xl-12">
+                    <div class="card mb-3 mb-sm-0 mb-xl-3">
+                        <div class="card-body">
+                            <form id="search-form" action="" method="">
+                                <label id="searchLabel" for="searchDiscussion">
+                                    <input placeholder="Search a keyword here..." type="text" name="searchDiscussion"
+                                        id="searchDiscussion" />
+                                </label>
+                        </div>
+                        <div class="card-footer">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                    id="flexRadioDefault1">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    My Discussion
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                    id="flexRadioDefault2" checked>
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    Show All Discussion
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-xl-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h1 class="h4 card-title">Start Discussion</h1>
+                            <form>
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label">Title</label>
+                                    <input class="form-control" id="exampleFormControlInput1" type="text"
+                                        placeholder="Discussion Title" aria-label="Title">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <button type="submit" class="btn btn-primary mb-3">POST</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
     </div>
-    <div class="listContainer">
-        <table id="informative">
-            <tr>
-                <th>Discussion Topic</th>
-                <th>Comments</th>
-                <th>Date</th>
-            </tr>
-            <tr>
-                <td>Alfreds Futterkiste</td>
-                <td>14</td>
-                <td>12-12-1223</td>
-            </tr>
+    <!--Table Section-->
+    <div class="col-12 col-xl-9">
+        <h1 class="h4 category mb-0 p-4 rounded-top text-light">Discussions</h1>
+        <table class="table table-striped table-bordered table-responsive">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col" class="forum-col">Discussions Topic</th>
+                    {{!-- <th scope="col">Topics</th> --}}
+                    <th scope="col">Comments</th>
+                    <th scope="col" class="last-post-col">Last Comment</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <h2 class="h6 mb-0"><a href="#">Forum Name</a></h2>
+                        <p class="mb-0">Lorem ipsum dolor sit amet, consectetur
+                            adipisicing elit. Velit, praesentium?</p>
+                    </td>
+                    {{!-- <td>
+                        <div>8</div>
+                    </td> --}}
+                    <td>30</td>
+                    <td>
+
+                        <div> By Author Name</div>
+                        <div> 11 Nov 2019, 16:11</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h2 class="h6 mb-0"><a href="#">Forum Name</a></h2>
+                        <p class="mb-0">Lorem ipsum dolor sit amet, consectetur
+                            adipisicing elit. Velit, praesentium?</p>
+                    </td>
+                    {{!-- <td>
+                        <div>8</div>
+                    </td> --}}
+                    <td>30</td>
+                    <td>
+
+                        <div> By Author Name</div>
+                        <div> 11 Nov 2019, 16:11</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h2 class="h6 mb-0"><a href="#">Forum Name</a></h2>
+                        <p class="mb-0">Lorem ipsum dolor sit amet, consectetur
+                            adipisicing elit. Velit, praesentium?</p>
+                    </td>
+                    {{!-- <td>
+                        <div>8</div>
+                    </td> --}}
+                    <td>30</td>
+                    <td>
+
+                        <div> By Author Name</div>
+                        <div> 11 Nov 2019, 16:11</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h2 class="h6 mb-0"><a href="#">Forum Name</a></h2>
+                        <p class="mb-0">Lorem ipsum dolor sit amet, consectetur
+                            adipisicing elit. Velit, praesentium?</p>
+                    </td>
+                    {{!-- <td>
+                        <div>8</div>
+                    </td> --}}
+                    <td>30</td>
+                    <td>
+
+                        <div> By Author Name</div>
+                        <div> 11 Nov 2019, 16:11</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h2 class="h6 mb-0"><a href="#">Forum Name</a></h2>
+                        <p class="mb-0">Lorem ipsum dolor sit amet, consectetur
+                            adipisicing elit. Velit, praesentium?</p>
+                    </td>
+                    {{!-- <td>
+                        <div>8</div>
+                    </td> --}}
+                    <td>30</td>
+                    <td>
+
+                        <div> By Author Name</div>
+                        <div> 11 Nov 2019, 16:11</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h2 class="h6 mb-0"><a href="#">Forum Name</a></h2>
+                        <p class="mb-0">Lorem ipsum dolor sit amet, consectetur
+                            adipisicing elit. Velit, praesentium?</p>
+                    </td>
+                    {{!-- <td>
+                        <div>8</div>
+                    </td> --}}
+                    <td>30</td>
+                    <td>
+
+                        <div> By Author Name</div>
+                        <div> 11 Nov 2019, 16:11</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h2 class="h6 mb-0"><a href="#">Forum Name</a></h2>
+                        <p class="mb-0">Lorem ipsum dolor sit amet, consectetur
+                            adipisicing elit. Velit, praesentium?</p>
+                    </td>
+                    {{!-- <td>
+                        <div>8</div>
+                    </td> --}}
+                    <td>30</td>
+                    <td>
+
+                        <div> By Author Name</div>
+                        <div> 11 Nov 2019, 16:11</div>
+                    </td>
+                </tr>
+            </tbody>
         </table>
     </div>
-</main>
+</div>
