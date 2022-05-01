@@ -157,6 +157,42 @@ router
         }
     })
 
+    router.get('/informative', async (req, res) => {
+        if (req.session.user) {
+            return res.status(200).render("events/informative", {
+                title: "Informative",
+                logged: true
+            });
+        } else {
+            return res.redirect('/');
+        }
+    });
+
+    router.get('/myEvents', async (req, res) => {
+        if (req.session.user) {
+            return res.status(200).render("events/myEvents", {
+                title: "My Events",
+                logged: true
+            });
+        } else {
+            return res.redirect('/');
+        }
+    });
+   
+    router.get('/myProfile', async (req, res) => {
+        if (req.session.user) {
+            return res.status(200).render("events/myProfile", {
+                title: "My Profile",
+                logged: true
+            });
+        } else {
+            return res.redirect('/');
+        }
+    });
+   
+  
+      
+
 module.exports = router;
 
 
