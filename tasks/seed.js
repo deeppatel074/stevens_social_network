@@ -14,6 +14,14 @@ async function main(){
     }catch(e){
         console.log(e);
     }
+
+    try{
+        let searchResult = await eventData.eventSearch("abc");
+        console.log(searchResult);
+
+    }catch(e){
+        console.log(e);
+    }
 }
 
 main();

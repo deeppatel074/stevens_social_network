@@ -5,7 +5,9 @@ const xss = require('xss');
 const valid = require("../data/valid");
 const eventData = require("../data/events");
 
-router.get('/', async (req, res) => {
+router 
+.route("/")
+.get(async (req, res) => {
     if (req.session.user) {
         return res.status(200).render("events/eventsList", {
             title: "Events",
@@ -13,6 +15,33 @@ router.get('/', async (req, res) => {
         });
     } else {
         return res.redirect('/');
+    }
+})
+
+.post(async(req,res) =>{
+    let searchData = req.body;
+    try{
+        searchData.searchTerm = await valid.checkString(searchData.searchTerm,"Search Term"); 
+
+    }catch(e){
+        res.status(400).json({Error : e});
+        return;
+    }
+    try{
+        if(req.session.user){
+            let searchResult = await eventData.eventSearch(searchData.searchTerm);
+            console.log(searchResult);
+            res.render("events/eventsList", {
+            title : "Events",
+            searchResult: searchResult,
+            logged: true
+        });
+        return;
+        }
+    }catch(e){
+        res.status(404).json(e.message);
+
+        return;
     }
 });
 
@@ -24,7 +53,11 @@ router
             res.status(200).redirect("/");
             return;
         }else{
-            res.status(200).render("events/registration");
+            res.status(200).render("events/registration",{
+                title : "Events",
+                
+                logged: true
+            });
             return;
         }
         
@@ -54,7 +87,8 @@ router
             title : "Errors",
             hasErrorsEventRegistration : true,
             errors : e,
-            eventsPostData : eventsPostData
+            eventsPostData : eventsPostData,
+            logged : true
         });
         return;
     }
@@ -75,7 +109,8 @@ router
             title : "Errors",
             hasErrorsEventRegister : true,
             errors : e,
-            eventsPostData : eventsPostData
+            eventsPostData : eventsPostData,
+            logged: true
         });
         return;
     }

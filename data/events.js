@@ -62,11 +62,28 @@ module.exports = {
         else{
             return({eventInserted: true})
         } 
+    },
 
-        
-
-
-
+    async eventSearch(searchTerm){
+        searchTerm = await valid.checkString(searchTerm, "searchTerm");
+        const eventCollection = await events();
+        let searchResult = [];
+        await eventCollection.createIndex( { title: "text", description: "text" } );
+         let searchResultDoc = await eventCollection.aggregate(
+            [
+              { $match: { $text: { $search: `${searchTerm}` } } }
+              
+            ]
+         )
+        //  let searchResult = await searchResultDoc.next();
+        // { $group: { _id: null, views: { $sum: "$views" } } }
+        while(await searchResultDoc.hasNext()){
+            searchResult.push(await searchResultDoc.next());
+        }
+         
+         return(searchResult);
     }
+    // .sort( { score: { $meta: "textScore" } } );
+    // { score: { $meta: "textScore" } }
 
 } 

@@ -1,0 +1,14 @@
+<div class = "search-box">
+    <form id="eventSearch" action="/events" method="POST">
+        <input type="text" id="searchTerm" name="searchTerm">
+        <button id="searchTermSubmit" type="submit">Submit</button>
+    </form>
+</div>
+<div class="search-result-display">
+    {{#each searchResult }}
+    <h1>{{title}}</h1>
+    <h1>Yes</h1>
+    {{/each}}
+    
+    
+</div>
