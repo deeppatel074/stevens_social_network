@@ -5,10 +5,22 @@
     </form>
 </div>
 <div class="search-result-display">
+    <div class="row">
     {{#each searchResult }}
-    <h1>{{title}}</h1>
-    <h1>Yes</h1>
+    <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+          <img src="{{bannerUrl}}" alt ="Banner Image"/>
+        <h5 class="card-title">{{title}}</h5>
+        <p class="card-text">{{description}}</p>
+        <p class="card-text"> ${{eventEntryPrice}}</p>
+        <p class="card-text">{{eventDate}}</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
     {{/each}}
-    
-    
+    </div>
 </div>
