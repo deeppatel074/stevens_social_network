@@ -51,9 +51,8 @@ router
         try {
             let student = await studentData.checkStudent(xss(email), xss(password));
             if (student.authenticated == true) {
-                req.session.user = { email: email };
+                req.session.user = { _id: student.data._id.toString(), email: email };
                 return res.redirect('/events');
-                return;
             }
             if (student.authenticated == false && !e) {
                 res.status(500).json(
@@ -85,7 +84,6 @@ router
                 return;
             } else {
                 return res.redirect('/events');
-                return;
             }
 
         } catch (e) {

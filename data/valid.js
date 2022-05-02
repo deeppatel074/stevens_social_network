@@ -1,5 +1,4 @@
-const axios = require("axios");
-
+const { ObjectId } = require('mongodb');
 function alphanumeric(inputtxt) {
     var letterNumber = /^[0-9a-zA-Z]+$/;
     if (inputtxt.match(letterNumber)) {
@@ -10,6 +9,22 @@ function alphanumeric(inputtxt) {
     }
 }
 module.exports = {
+    async id(id) {
+        if (!id) throw `You must provide an Id.`
+        if (typeof id !== 'string') throw `$Id should be a string.`;
+        id = id.trim();
+        if (id.trim().length <= 0) throw `$Id string should not be empty.`;
+        if (!ObjectId.isValid(id.trim())) throw `Enter valid object.`;
+        return id;
+    },
+    async checkSessionId(id) {
+        if (!id) throw `Invalid Session Data`
+        if (typeof id !== 'string') throw `Invalid Session Data`;
+        id = id.trim();
+        if (id.trim().length <= 0) throw `Invalid Session Data`;
+        if (!ObjectId.isValid(id.trim())) throw `Invalid Session Data`;
+        return id;
+    },
     async checkString(str, name) {
 
         if (!str) {
