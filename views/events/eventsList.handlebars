@@ -1,12 +1,39 @@
 <div class = "search-box">
+     <div class="errors">
+    {{#if errors}}
+    {{errors}}
+    {{/if}}
+  </div>
     <form id="eventSearch" action="/events" method="POST">
-        <input type="text" id="searchTerm" name="searchTerm">
+        <input type="text" id="searchTerm" name="searchTerm" value="{{searchTerm}}">
         <button id="searchTermSubmit" type="submit">Submit</button>
     </form>
 </div>
-<div class="search-result-display">
-    <div class="row">
+<div id = "search-result-box" class="search-result-display" >
+        <div class="row">
     {{#each searchResult }}
+
+    <div class="col-sm-6">
+    <div class="card text-center">
+      <div class="card-body">
+          <img src="{{bannerUrl}}" alt ="Banner Image"/>
+        <h5 class="card-title">{{title}}</h5>
+        <p class="card-text">{{description}}</p>
+        <p class="card-text"> ${{eventEntryPrice}}</p>
+        <p class="card-text">{{eventDate}}</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+ 
+    {{/each}}
+   </div>
+</div>
+<div id = "eventsAll" class="eventsAll" hidden="true">
+    <div class="row">
+    {{#each eventsAll }}
     <div class="col-sm-6">
     <div class="card">
       <div class="card-body">
@@ -24,3 +51,7 @@
     {{/each}}
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous">
+  </script>
+<script src="/public/js/eventSearch.js"></script>

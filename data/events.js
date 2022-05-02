@@ -75,15 +75,22 @@ module.exports = {
               
             ]
          )
-        //  let searchResult = await searchResultDoc.next();
-        // { $group: { _id: null, views: { $sum: "$views" } } }
         while(await searchResultDoc.hasNext()){
             searchResult.push(await searchResultDoc.next());
         }
          
          return(searchResult);
+    },
+     
+    async getAllEvents(){
+        const eventCollection = await events();
+        let eventsAll = [];
+        let eventsAllDoc = await eventCollection.find();
+        while(await eventsAllDoc.hasNext()){
+            eventsAll.push(await eventsAllDoc.next());
+        }
+        return (eventsAll);
     }
-    // .sort( { score: { $meta: "textScore" } } );
-    // { score: { $meta: "textScore" } }
+ 
 
 } 

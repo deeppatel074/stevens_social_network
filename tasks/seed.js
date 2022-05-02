@@ -22,6 +22,12 @@ async function main(){
     }catch(e){
         console.log(e);
     }
+    try{
+        let eventsAll = await eventData.getAllEvents();
+        console.log(eventsAll);
+    }catch(e){
+        console.log(e);
+    }
 }
 
 main();

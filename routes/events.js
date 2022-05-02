@@ -5,16 +5,23 @@ const xss = require('xss');
 const valid = require("../data/valid");
 const eventData = require("../data/events");
 
+
 router 
 .route("/")
 .get(async (req, res) => {
-    if (req.session.user) {
-        return res.status(200).render("events/eventsList", {
-            title: "Events",
-            logged: true
-        });
-    } else {
-        return res.redirect('/');
+    try{
+        if (req.session.user) {
+            let eventsAll = await eventData.getAllEvents();
+            return res.status(200).render("events/eventsList", {
+                eventsAll : eventsAll,
+                title: "Events",
+                logged: true
+            });
+        } else {
+            return res.redirect('/');
+        }
+    }catch(e){
+        res.status(500).json(e.message);
     }
 })
 
@@ -30,11 +37,12 @@ router
     try{
         if(req.session.user){
             let searchResult = await eventData.eventSearch(searchData.searchTerm);
-            console.log(searchResult);
+            // console.log(searchResult);
             res.render("events/eventsList", {
             title : "Events",
             searchResult: searchResult,
-            logged: true
+            logged: true,
+            searchTerm : searchData.searchTerm
         });
         return;
         }
