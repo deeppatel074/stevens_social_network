@@ -87,5 +87,109 @@ module.exports = {
             return posts;
         }
     },
-    async getPost() { }
+    async getPost(id) {
+        id = await valid.id(id);
+        const informativeCollection = await informative();
+        let posts = await informativeCollection.aggregate([
+            {
+                $match: { _id: ObjectId(id) }
+            }, {
+                $lookup:
+                {
+                    from: "students",
+                    localField: "createdBy",
+                    foreignField: "_id",
+                    pipeline: [{
+                        $project: {
+                            firstName: 1,
+                            lastName: 1
+                        }
+                    }],
+                    as: "createdBy"
+                }
+            },
+            {
+                $project: {
+                    _id: 1,
+                    title: 1,
+                    description: 1,
+                    totalComments: { $size: '$discussion' },
+                    createdBy: 1,
+                    createdAt: { $dateToString: { format: "%Y-%m-%d %H:%M:%S", date: "$createdAt", timezone: "America/New_York" } },
+                }
+            }]).toArray();
+        if (posts.length > 0) {
+            let discussion = await this.getCommentsOfPost(id);
+            let sendData = posts[0];
+            sendData.comments = discussion;
+            return sendData;
+        } else {
+            throw "Post Not Found";
+        }
+    },
+    async getCommentsOfPost(id) {
+        id = await valid.id(id);
+        const informativeCollection = await informative();
+        const posts = await informativeCollection.aggregate([
+            {
+                $match: { _id: ObjectId(id) }
+            },
+            { $unwind: "$discussion" },
+            {
+                $lookup:
+                {
+                    from: "students",
+                    localField: "discussion.commentBy",
+                    foreignField: "_id",
+                    pipeline: [{
+                        $project: {
+                            _id: 0,
+                            firstName: 1,
+                            lastName: 1,
+                            profileUrl: 1
+                        }
+                    }],
+                    as: "discussion.commentBy"
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                    commentBy: "$discussion.commentBy",
+                    comment: "$discussion.comment",
+                    commentDate: { $dateToString: { format: "%Y-%m-%d %H:%M:%S", date: "$createdAt", timezone: "America/New_York" } }
+                }
+            }
+        ]).toArray();
+        return posts;
+    },
+    async addCommentsToPost(postId, comment, userId) {
+        postId = await valid.id(postId);
+        comment = await valid.checkString(comment, 'comment');
+        userId = await valid.id(userId);
+        //find post
+        const informativeCollection = await informative();
+        const post = await informativeCollection.findOne({ _id: ObjectId(postId) });
+        // console.log("Post Found");
+        if (!post) {
+            throw 'Post not found!!';
+        }
+        let commentToAdd = {
+            _id: new ObjectId(),
+            commentBy: ObjectId(userId),
+            comment: comment,
+            commentDate: new Date()
+        }
+        // console.log("Adding to update")
+        const updateInfo = await informativeCollection.updateOne(
+            { _id: ObjectId(postId) },
+            { $addToSet: { discussion: commentToAdd } }
+        );
+        // console.log("Adding to update")
+        if (!updateInfo.matchedCount && !updateInfo.modifiedCount)
+            throw 'Update failed';
+
+        return true;
+        // update post 
+    }
 }

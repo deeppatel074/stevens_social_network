@@ -3,7 +3,7 @@
         <ol class="breadcrumb">
             {{!-- <li class="breadcrumb-item"><a href="#"></a></li> --}}
             <li class="breadcrumb-item"><a href="/informative">Informative</a></li>
-            <li class="breadcrumb-item active" aria-current="page">This is title of post</li>
+            <li class="breadcrumb-item active" aria-current="page">{{postDetails.title}}</li>
         </ol>
     </div>
 </nav>
@@ -11,24 +11,27 @@
     <!-- Content here -->
     <div class="row">
         <div class="col">
-            <h1 class="h2 mb-0 postTitle">This is title of post</h1>
+            <h1 class="h2 mb-0 postTitle">{{postDetails.title}}</h1>
         </div>
     </div>
     <div class="row">
         <div class="col">
-            <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                incididunt ut labore et
-                dolore magna
-                aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                consequat. Duis
-                aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                Excepteur sint
-                occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+            <p class="description">{{postDetails.description}}</p>
         </div>
     </div>
     <div class="row">
         <div class="col">
-            <h6>Comments:</h6>
+            Posted By: {{postDetails.createdBy.0.firstName}} {{postDetails.createdBy.0.lastName}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            Posted Date: {{postDetails.createdAt}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h6>Comments: {{postDetails.totalComments}}</h6>
         </div>
         <div class="col">
 
@@ -37,22 +40,24 @@
 
         </div>
         <div class="col">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                data-bs-whatever="@mdo">Add Comment</button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add
+                Comment</button>
         </div>
 
     </div>
+    {{#each postDetails.comments}}
     <div class="row">
         <div class="col">
             <div class="chatContainer">
-                <img src="https://www.w3schools.com/w3images/bandmember.jpg" alt="Avatar" style="width:100%;">
-                <h6>Deep Patel</h6>
-                <p style="text-align: left; padding-top:0px">Hello. How are you today?</p>
-                <span class="time-right">11:00</span>
+                <img src="/public/images/profiles/{{this.commentBy.0.profileUrl}}" alt="Avatar" style="width:100%;">
+                <h6>{{this.commentBy.0.firstName}} {{this.commentBy.0.lastName}}</h6>
+                <p style="text-align: left; padding-top:0px">{{this.comment}}</p>
+                <span class="time-right">{{this.commentDate}}</span>
             </div>
         </div>
     </div>
-    <div class="row">
+    {{/each}}
+    {{!-- <div class="row">
         <div class="col">
             <div class="chatContainer">
                 <img src="https://www.w3schools.com/w3images/bandmember.jpg" alt="Avatar" style="width:100%;">
@@ -71,27 +76,25 @@
                 <span class="time-right">11:00</span>
             </div>
         </div>
-    </div>
+    </div> --}}
 </div>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">New Comment</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Add New Comment Here</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form id="comment-form" method="POST">
                     <div class="mb-3">
                         <label for="message-text" class="col-form-label">Message:</label>
-                        <textarea class="form-control" id="message-text"></textarea>
+                        <textarea class="form-control" name="comment" id="message-text"></textarea>
                     </div>
+
+                    <button type="submit" class="btn btn-primary">Comment</button>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Comment</button>
             </div>
         </div>
     </div>
@@ -101,17 +104,18 @@
     var exampleModal = document.getElementById('exampleModal')
     exampleModal.addEventListener('show.bs.modal', function (event) {
         // Button that triggered the modal
-        var button = event.relatedTarget
+        // var button = event.relatedTarget
         // Extract info from data-bs-* attributes
-        var recipient = button.getAttribute('data-bs-whatever')
+        // var recipient = button.getAttribute('data-bs-whatever');
+        //document.getElementById('#comment-form').action = `/informative/comment/${recipient}`
         // If necessary, you could initiate an AJAX request here
         // and then do the updating in a callback.
         //
         // Update the modal's content.
         // var modalTitle = exampleModal.querySelector('.modal-title')
-        v//ar modalBodyInput = exampleModal.querySelector('.modal-body input')
+        //ar modalBodyInput = exampleModal.querySelector('.modal-body input')
 
-        modalTitle.textContent = 'New message to ' + recipient
-        modalBodyInput.value = recipient
+        //modalTitle.textContent = 'New message to ' + recipient
+        //modalBodyInput.value = recipient
     })
 </script>

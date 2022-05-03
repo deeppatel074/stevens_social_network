@@ -1,4 +1,5 @@
 (function ($) {
+    let isMy = "false";
     function onPageLoad() {
         var requestConfig = {
             method: 'GET',
@@ -14,7 +15,6 @@
     $('#searchDiscussion').keyup(function () {
         $('.table-body').html(``);
         let searchTerm = $('#searchDiscussion').val().trim();
-        let isMy = $('input[name=flexRadioDefault]').val()
         var requestConfig = {
             method: 'GET',
             url: `/informative/post?search=${searchTerm}&my=${isMy}`
@@ -25,12 +25,13 @@
 
         });
     });
-    $('input[type=radio][name=flexRadioDefault]').change(function () {
+    $('input[name=flexRadioDefault]').change(function () {
         $('.table-body').html(``);
         let searchTerm = $('#searchDiscussion').val().trim();
+        isMy = this.value;
         var requestConfig = {
             method: 'GET',
-            url: `/informative/post?search=${searchTerm}&my=${this.value}`
+            url: `/informative/post?search=${searchTerm}&my=${isMy}`
         };
         $.ajax(requestConfig).then(function (responseMessage) {
             var newElement = $(responseMessage);
@@ -41,7 +42,7 @@
     function bindPostToTable(posts) {
         $.each(posts, (key, element) => {
             $('.table-body').append(`
-                <tr class="clickRow" id="${element._id}" data-href="/informative/${element._id}">
+                <tr class="clickRow" id="${element._id}" data-href="/informative/post/${element._id}">
                     <td>
                         <h2 class="h6 mb-0">${element.title}</h2>
                         <p class="mb-0">${element.description}</p>

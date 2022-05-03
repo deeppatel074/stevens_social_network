@@ -183,7 +183,7 @@ p {
 
 .description {
   text-align: justify;
-  text-justify: inter-word;
+  font-size: 18px;
 }
 
 .chatContainer {
@@ -265,7 +265,8 @@ p {
 }
 
 #search-form,
-#post-form {
+#post-form,
+#comment-form {
   margin: auto;
   width: 100%;
 }
