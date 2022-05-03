@@ -101,16 +101,4 @@ router.post('/create', async (req, res) => {
 });
 
 
-router.get('/test/:id', async (req, res) => {
-    // if (req.session.user) {
-    try {
-        let id = req.params.id;
-        id = await valid.id(id);
-        let postDetails = await informativeData.getCommentsOfPost(id);
-        return res.json(postDetails);
-    } catch (e) {
-        // Add Errors here 
-    }
-});
-
 module.exports = router;

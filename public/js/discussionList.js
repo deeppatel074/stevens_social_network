@@ -1,6 +1,7 @@
 (function ($) {
     let isMy = "false";
     function onPageLoad() {
+        $('.table-body').html(` `);
         var requestConfig = {
             method: 'GET',
             url: `/informative/post`
@@ -12,8 +13,9 @@
         });
     }
 
-    $('#searchDiscussion').keyup(function () {
-        $('.table-body').html(``);
+    $('#searchDiscussion').keyup(function (event) {
+        event.preventDefault();
+        $('.table-body').html(` `);
         let searchTerm = $('#searchDiscussion').val().trim();
         var requestConfig = {
             method: 'GET',
@@ -26,7 +28,7 @@
         });
     });
     $('input[name=flexRadioDefault]').change(function () {
-        $('.table-body').html(``);
+        $('.table-body').html(` `);
         let searchTerm = $('#searchDiscussion').val().trim();
         isMy = this.value;
         var requestConfig = {
