@@ -213,6 +213,11 @@ p {
   border-radius: 50%;
 }
 
+.chatContainer p {
+  text-align: left;
+  padding-top: 0px
+}
+
 .chatContainer img.right {
   float: right;
   margin-left: 20px;
@@ -221,12 +226,12 @@ p {
 
 .time-right {
   float: right;
-  color: #aaa;
+  color: #625d5d;
 }
 
 .time-left {
   float: left;
-  color: #999;
+  color: #625d5d;
 }
 
 /*
@@ -249,6 +254,9 @@ p {
   background-color: #0474bc;
   color: white;
 } */
+.bitem {
+  color: #0768a5;
+}
 
 .row {
   margin-right: calc(0 * var(--bs-gutter-x))
@@ -299,4 +307,28 @@ p {
   background-color: white;
   /* margin-left: 20px; */
   width: 100%;
+}
+
+.descriptionTd {
+  text-align: justify;
+}
+
+#error-main {
+  display: table;
+  width: 100%;
+  height: 100vh;
+  text-align: center;
+}
+
+.error-display {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.error-display h1 {
+  font-size: 50px;
+  display: inline-block;
+  padding-right: 12px;
+  animation: type .5s alternate infinite;
+  color: white;
 }

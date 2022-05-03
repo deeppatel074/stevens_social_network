@@ -1,5 +1,35 @@
 (function ($) {
     let isMy = "false";
+    let postForm = $('#post-form')
+    let titleInput = $('#title');
+    let descriptionInput = $('#description');
+    let submitButton = $('#postSubmit');
+    let alert = $('.errors');
+
+    function addAlert(message, type) {
+        alert.html('<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+    }
+    postForm.submit((event) => {
+        event.preventDefault();
+        submitButton.prop('disabled', true);
+
+        let info = {
+            title: titleInput.val().trim(),
+            description: descriptionInput.val().trim()
+        };
+
+        let hasErrors = false;
+        if (!info.title || !info.description) {
+            addAlert("Enter both title and description", "danger")
+            hasErrors = true;
+        }
+        if (!hasErrors) {
+            postForm.unbind().submit();
+        } else {
+            submitButton.prop('disabled', false);
+        }
+    });
+
     function onPageLoad() {
         $('.table-body').html(` `);
         var requestConfig = {
@@ -47,7 +77,7 @@
                 <tr class="clickRow" id="${element._id}" data-href="/informative/post/${element._id}">
                     <td>
                         <h2 class="h6 mb-0">${element.title}</h2>
-                        <p class="mb-0">${element.description}</p>
+                        <p class="descriptionTd mb-0">${element.description}</p>
                     </td>
                     <td>${element.totalComments}</td>
                     <td>

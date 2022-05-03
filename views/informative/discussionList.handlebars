@@ -36,19 +36,26 @@
                     <div class="card">
                         <div class="card-body">
                             <h1 class="h4 card-title">Start Discussion</h1>
+                            <div class="errors">
+                                {{#if errors}}
+                                <div class="alert alert-danger alert-dismissible" role="alert">' {{errors}}
+                                    '<button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button></div>
+                                {{/if}}
+                            </div>
                             <form id="post-form" action="/informative/create" method="POST">
                                 <div class="mb-3">
                                     <label for="title" class="form-label">Title</label>
                                     <input class="form-control" id="title" name="title" type="text"
-                                        placeholder="Discussion Title" aria-label="Title" required>
+                                        placeholder="Discussion Title" aria-label="Title">
                                 </div>
                                 <div class="mb-3">
                                     <label for="description" class="form-label">Description</label>
-                                    <textarea class="form-control" id="description" name="description" rows="5"
-                                        required></textarea>
+                                    <textarea class="form-control" id="description" name="description"
+                                        rows="5"></textarea>
                                 </div>
                                 <div class="mb-3">
-                                    <button type="submit" class="btn btn-primary mb-3">POST</button>
+                                    <button type="submit" id="postSubmit" class="btn btn-primary mb-3">POST</button>
                                 </div>
                             </form>
                         </div>

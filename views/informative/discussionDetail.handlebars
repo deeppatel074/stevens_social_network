@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <ol class="breadcrumb">
             {{!-- <li class="breadcrumb-item"><a href="#"></a></li> --}}
-            <li class="breadcrumb-item"><a href="/informative">Informative</a></li>
+            <li class="breadcrumb-item"><a class="bitem" href="/informative">Informative</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{postDetails.title}}</li>
         </ol>
     </div>
@@ -31,7 +31,7 @@
     </div>
     <div class="row">
         <div class="col">
-            <h6>Comments: {{postDetails.totalComments}}</h6>
+            <h2 class="h6 mb-0">Comments: {{postDetails.totalComments}}</h2>
         </div>
         <div class="col">
 
@@ -49,9 +49,9 @@
     <div class="row">
         <div class="col">
             <div class="chatContainer">
-                <img src="/public/images/profiles/{{this.commentBy.0.profileUrl}}" alt="Avatar" style="width:100%;">
-                <h6>{{this.commentBy.0.firstName}} {{this.commentBy.0.lastName}}</h6>
-                <p style="text-align: left; padding-top:0px">{{this.comment}}</p>
+                <img src="/public/images/profiles/{{this.commentBy.0.profileUrl}}" alt="Avatar">
+                <h2 class="h6 mb-0">{{this.commentBy.0.firstName}} {{this.commentBy.0.lastName}}</h2>
+                <p>{{this.comment}}</p>
                 <span class="time-right">{{this.commentDate}}</span>
             </div>
         </div>
@@ -83,39 +83,24 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add New Comment Here</h5>
+                <h3 class="modal-title h5 mb-0" id="exampleModalLabel">Add New Comment Here</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <div class="errors"></div>
                 <form id="comment-form" method="POST">
                     <div class="mb-3">
-                        <label for="message-text" class="col-form-label">Message:</label>
+                        <label for="message-text" class="col-form-label">Comment:</label>
                         <textarea class="form-control" name="comment" id="message-text"></textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Comment</button>
+                    <button type="submit" id="submit-comment" class="btn btn-primary">Comment</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
-<script>
-    var exampleModal = document.getElementById('exampleModal')
-    exampleModal.addEventListener('show.bs.modal', function (event) {
-        // Button that triggered the modal
-        // var button = event.relatedTarget
-        // Extract info from data-bs-* attributes
-        // var recipient = button.getAttribute('data-bs-whatever');
-        //document.getElementById('#comment-form').action = `/informative/comment/${recipient}`
-        // If necessary, you could initiate an AJAX request here
-        // and then do the updating in a callback.
-        //
-        // Update the modal's content.
-        // var modalTitle = exampleModal.querySelector('.modal-title')
-        //ar modalBodyInput = exampleModal.querySelector('.modal-body input')
-
-        //modalTitle.textContent = 'New message to ' + recipient
-        //modalBodyInput.value = recipient
-    })
-</script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous">
+    </script>
+<script src="/public/js/discussionDetail.js"></script>

@@ -12,7 +12,12 @@ router.get('/', async (req, res) => {
                 logged: true,
             });
         } catch (e) {
-            // Add Errors here 
+            return res.status(404).render("errors/errors", {
+                title: "Error",
+                logged: true,
+                error: "Page Not Found",
+                code: 404
+            });
         }
     } else {
         return res.redirect('/');
@@ -20,13 +25,21 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/post', async (req, res) => {
-    // try Catch here
     if (req.session.user) {
         let search = req.query.search;
         let my = req.query.my;
         let studentId = req.session.user._id;
-        const posts = await informativeData.getAllPost(search, my, studentId);
-        return res.status(200).json(posts);
+        try {
+            const posts = await informativeData.getAllPost(search, my, studentId);
+            return res.status(200).json(posts);
+        } catch (e) {
+            return res.status(404).render("errors/errors", {
+                title: "Error",
+                logged: true,
+                error: "Posts Not Found",
+                code: 404
+            });
+        }
     } else {
         return res.redirect('/');
     }
@@ -44,7 +57,12 @@ router.get('/post/:id', async (req, res) => {
                 postDetails: postDetails
             });
         } catch (e) {
-            // Add Errors here 
+            return res.status(404).render("errors/errors", {
+                title: "Error",
+                logged: true,
+                error: "Post Not Found",
+                code: 404
+            });
         }
     } else {
         return res.redirect('/');
@@ -62,10 +80,15 @@ router.post('/post/:id', async (req, res) => {
             id = await valid.id(id);
             let postDetails = await informativeData.addCommentsToPost(id, comment, userId);
             if (postDetails) {
-                return res.redirect(`/informative/post/${id}`);
+                return res.status(200).json({
+                    isSuccess: true
+                });
             }
         } catch (e) {
-            // Add Errors here 
+            return res.status(400).json({
+                isError: true,
+                errors: e
+            });
         }
     } else {
         return res.redirect('/');
