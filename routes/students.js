@@ -94,7 +94,7 @@ router
 
     .post(upload.single("profileUrl"), async (req, res) => {
         const studentPostData = req.body;
-        let profilePic = req.file.originalname;
+        let profilePic = req.file.filename;
 
         try {
             studentPostData.firstName = await valid.checkString(studentPostData.firstName, "firstName");
