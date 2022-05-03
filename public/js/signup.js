@@ -9,9 +9,10 @@
     let profileUrl = $('#profileUrl');
     let submitButton = $('#submitButton');
     let alert = $('.errors');
-    let hasErrors = false;
+
 
     signupForm.submit((event) => {
+        let hasErrors = false;
         event.preventDefault();
         submitButton.prop('disabled', true);
         let info = {
@@ -80,7 +81,7 @@
         }
 
         if (!hasErrors) {
-            loginForm.unbind().submit();
+            signupForm.unbind().submit();
         } else {
             submitButton.prop('disabled', false);
         }
