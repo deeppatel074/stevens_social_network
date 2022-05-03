@@ -52,7 +52,7 @@ module.exports = {
         let comparePassword = false;
         comparePassword = await bcrypt.compare(password, student.password);
         if (comparePassword) {
-            return { authenticated: true };
+            return { authenticated: true, data: student };
         } else {
             throw `Either the email or password is invalid`;
         }
@@ -68,6 +68,16 @@ module.exports = {
             throw `Couldn't find student`
         }
 
+    },
+    async getStudentById(id) {
+        id = await valid.id(id);
+        const studentsCollection = await students();
+        const student = await studentsCollection.findOne({ _id: ObjectId(id) });
+        if (student) {
+            return student;
+        } else {
+            throw 'User not registered';
+        }
     }
 
 }

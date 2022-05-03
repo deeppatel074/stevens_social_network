@@ -1,0 +1,106 @@
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <ol class="breadcrumb">
+            {{!-- <li class="breadcrumb-item"><a href="#"></a></li> --}}
+            <li class="breadcrumb-item"><a class="bitem" href="/informative">Informative</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{postDetails.title}}</li>
+        </ol>
+    </div>
+</nav>
+<div class="container postContainer">
+    <!-- Content here -->
+    <div class="row">
+        <div class="col">
+            <h1 class="h2 mb-0 postTitle">{{postDetails.title}}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <p class="description">{{postDetails.description}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            Posted By: {{postDetails.createdBy.0.firstName}} {{postDetails.createdBy.0.lastName}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            Posted Date: {{postDetails.createdAt}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h2 class="h6 mb-0">Comments: {{postDetails.totalComments}}</h2>
+        </div>
+        <div class="col">
+
+        </div>
+        <div class="col">
+
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add
+                Comment</button>
+        </div>
+
+    </div>
+    {{#each postDetails.comments}}
+    <div class="row">
+        <div class="col">
+            <div class="chatContainer">
+                <img src="/public/images/profiles/{{this.commentBy.0.profileUrl}}" alt="Avatar">
+                <h2 class="h6 mb-0">{{this.commentBy.0.firstName}} {{this.commentBy.0.lastName}}</h2>
+                <p>{{this.comment}}</p>
+                <span class="time-right">{{this.commentDate}}</span>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+    {{!-- <div class="row">
+        <div class="col">
+            <div class="chatContainer">
+                <img src="https://www.w3schools.com/w3images/bandmember.jpg" alt="Avatar" style="width:100%;">
+                <h6>Vyakti</h6>
+                <p style="text-align: left; padding-top:0px">Hello. How are you today?</p>
+                <span class="time-right">11:00</span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="chatContainer">
+                <img src="https://www.w3schools.com/w3images/bandmember.jpg" alt="Avatar" style="width:100%;">
+                <h6>Ved Bhanushali</h6>
+                <p style="text-align: left; padding-top:0px">Hello. How are you today?</p>
+                <span class="time-right">11:00</span>
+            </div>
+        </div>
+    </div> --}}
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title h5 mb-0" id="exampleModalLabel">Add New Comment Here</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="errors"></div>
+                <form id="comment-form" method="POST">
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Comment:</label>
+                        <textarea class="form-control" name="comment" id="message-text"></textarea>
+                    </div>
+
+                    <button type="submit" id="submit-comment" class="btn btn-primary">Comment</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous">
+    </script>
+<script src="/public/js/discussionDetail.js"></script>

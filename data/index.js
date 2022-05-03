@@ -1,8 +1,8 @@
 const students = require('./students');
-
-// const userData = require('./users');
+const informativeData = require('./informative');
 
 module.exports = {
   students: students,
+  informative: informativeData,
 
 };
