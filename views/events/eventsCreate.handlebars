@@ -1,0 +1,56 @@
+<div class="signup-box">
+    <h1>Event Registeration</h1>
+    <div class="errors">
+        {{#if errors}}
+        {{errors}}
+        {{/if}}
+    </div>
+    <form id="event-registration-form" action="/events/register" method="POST" enctype="multipart/form-data">
+
+        <label for="title"> Title</label>
+        <input type="text" id="title" name="title" placeholder="Title" value="{{eventsPostData.title}}" required>
+
+        <label for="description">Description</label>
+        <input type="text" id="description" name="description" placeholder="Description"
+            value="{{eventsPostData.description}}" required>
+
+        <label for="eventDate">Event Date </label>
+        <input type="date" id="eventDate" name="eventDate" placeholder="Event Date" value="{{eventsPostData.eventDate}}"
+            required>
+
+        <label for="eventEntryPrice">Entry Price ($)</label>
+        <input type="number" min="0" step="any" id="eventEntryPrice" name="eventEntryPrice" placeholder="Entry Price"
+            value="{{eventsPostData.participantLimit}}" required />
+
+        <label for="Event Location">Event Location</label>
+        <label for="street">Street</label>
+        <input type="street" id="street" name="street" placeholder="Street" required>
+
+        <label for="apartmentNumber"> Apartment Number</label>
+        <input type="text" id="apartmentNumber" name="apartmentNumber" placeholder="Apartment Number">
+
+        <label for="city">City</label>
+        <input type="city" id="city" name="city" placeholder="City" required>
+
+        <label for="state">State</label>
+        <input type="state" id="state" name="state" placeholder="State" required>
+
+        <label for="zip">Zip Code</label>
+        <input type="zip" id="zip" name="zip" placeholder="Zip Code" required>
+
+        <label for "participantLimit">Participant Limit</label>
+        <input type="number" min="2" id="participantLimit" name="participantLimit" placeholder="Participant Limit "
+            value="{{eventsPostData.participantLimit}}" required>
+
+        <label for="bannerUrl">Upload Banner Picture</label>
+        <input type="file" id="bannerUrl" name="bannerUrl" placeholder="Banner Image" capture>
+
+        <button id="submitButtonEventRegister" class="buttonRegister" type="submit">Submit</button>
+
+    </form>
+
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous">
+    </script>
+<script src="/public/js/eventRegister.js"></script>

@@ -8,6 +8,7 @@ body {
 .signup-box {
   width: 360px;
   margin: auto;
+  margin-top: 20px;
   padding-bottom: 30px;
   background-color: white;
   border-radius: 3px;
@@ -218,6 +219,10 @@ p {
   padding-top: 0px
 }
 
+.chatRow {
+  --bs-gutter-x: 0;
+}
+
 .chatContainer img.right {
   float: right;
   margin-left: 20px;
@@ -300,6 +305,7 @@ p {
 .card {
   margin-top: 20px;
   margin-left: 5px;
+  width: 100%;
 
 }
 
