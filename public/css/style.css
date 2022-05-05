@@ -20,6 +20,7 @@ body {
   padding-bottom: 30px;
   border-radius: 3px;
   background-color: white;
+  margin-top: 20px;
 }
 
 h1 {
@@ -261,6 +262,7 @@ p {
 } */
 .bitem {
   color: #0768a5;
+  cursor: pointer;
 }
 
 .row {
@@ -279,7 +281,8 @@ p {
 
 #search-form,
 #post-form,
-#comment-form {
+#comment-form,
+#comments-form {
   margin: auto;
   width: 100%;
 }

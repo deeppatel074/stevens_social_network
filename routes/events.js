@@ -8,9 +8,12 @@ const eventData = require("../data/events");
 // will render events list
 router.get('/', async (req, res) => {
     if (req.session.user) {
+        let events = await eventData.getAllActiveEvents();
+        // return res.json(events);
         return res.status(200).render("events/eventsList", {
             title: "Events",
-            logged: true
+            logged: true,
+            events: events
         });
     } else {
         return res.redirect('/');
@@ -35,7 +38,7 @@ router.post('/create', bannerUpload.single("bannerUrl"), async (req, res) => {
             const { title, description, eventDate, location, perks, participantLimit } = eventsPostData
             let event = await eventData.createEvents(xss(title), xss(description), xss(eventDate), xss(location), xss(perks), xss(participantLimit), xss(bannerPic), xss(req.session.user._id));
             if (event.eventInserted == true) {
-                return res.redirect('/events/1234');
+                return res.redirect(`/events/${event._id}`);
 
             } else {
                 return res.status(500).json({ Error: "Internal Server Error" });
@@ -56,6 +59,7 @@ router.post('/create', bannerUpload.single("bannerUrl"), async (req, res) => {
 
 router.get('/myevents', async (req, res) => {
     if (req.session.user) {
+
         return res.status(200).render("events/myevents", {
             title: "Create Events",
             logged: true
@@ -68,10 +72,81 @@ router.get('/myevents', async (req, res) => {
 // will render events detail page
 router.get('/:id', async (req, res) => {
     if (req.session.user) {
-        return res.status(200).render("events/eventsDetail", {
-            title: "Events",
-            logged: true
-        });
+        try {
+            let id = req.params.id;
+            id = await valid.id(id);
+            // console.log("Id", id);
+            let userId = req.session.user._id
+            let data = await eventData.getEventDetail(id, userId);
+            // return res.json(data);
+            return res.status(200).render("events/eventsDetail", {
+                title: "Events",
+                logged: true,
+                data: data
+            });
+        } catch (e) {
+            // return res.json(e);
+            return res.status(404).render("errors/errors", {
+                title: "Error",
+                logged: true,
+                error: "Events Not Found",
+                code: 404
+            });
+        }
+    } else {
+        return res.redirect('/');
+    }
+});
+
+
+router.get('/chats/:id', async (req, res) => {
+    if (req.session.user) {
+        try {
+            let id = req.params.id;
+            id = await valid.id(id);
+            // console.log("Id", id);
+            let data = await eventData.getEventComment(id);
+            return res.status(200).json(data);
+
+        } catch (e) {
+            return res.status(400).json(e);
+        }
+    } else {
+        return res.redirect('/');
+    }
+});
+
+router.post('/chats/:id', async (req, res) => {
+    if (req.session.user) {
+        try {
+            let id = req.params.id;
+            id = await valid.id(id);
+            let comment = req.body.comment;
+            let userId = req.session.user._id;
+            let data = await eventData.addCommentToEvent(id, comment, userId);
+            return res.status(200).json(data);
+        } catch (e) {
+            return res.status(400).json({ error: e });
+        }
+    } else {
+        return res.redirect('/');
+    }
+});
+
+router.post('/rsvp/:id', async (req, res) => {
+    if (req.session.user) {
+        try {
+            let id = req.params.id;
+            id = await valid.id(id);
+            // let comment = req.body.comment;
+            let userId = req.session.user._id;
+            let data = await eventData.rsvpEvent(id, userId);
+            if (data) {
+                return res.redirect('/events/' + id);
+            }
+        } catch (e) {
+            return res.status(400).json({ error: e });
+        }
     } else {
         return res.redirect('/');
     }

@@ -1,91 +1,147 @@
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a class="bitem" onclick="history.back()">Back</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{data.title}}</li>
+        </ol>
+    </div>
+</nav>
 <div class="row">
     <!--Aside Section-->
+    {{#if data.isRegistered}}
     <div class="col-12  col-xl-3">
         <aside>
             <div class="row chatRow">
                 <div class="col-12 col-sm-6 col-xl-12">
                     <div class="card mb-3 mb-sm-0 mb-xl-3">
-                        <div class="card-body" style="max-height: 380px; overflow: scroll; overflow-x: hidden;">
+                        <div class="card-body chat-body" id="scrl"
+                            style="max-height: 380px; min-height: 200px; overflow: scroll; overflow-x: hidden;">
+                            {{#each data.comments}}
                             <div class="row">
                                 <div class="col">
                                     <div class="chatContainer">
-                                        <img src="https://www.w3schools.com/w3images/bandmember.jpg" alt="Avatar"
+                                        <img src="/public/images/profiles/{{this.commentBy.0.profileUrl}}" alt="Avatar"
                                             style="width:100%;">
-                                        <h6>Vyakti</h6>
-                                        <p style="text-align: left; padding-top:0px">Hello. How are you today?</p>
-                                        <span class="time-right">11:00</span>
+                                        <h6>{{this.commentBy.0.firstName}} {{this.commentBy.0.lastName}}</h6>
+                                        <p style="text-align: left; padding-top:0px">{{this.comment}}</p>
+                                        <span class="time-right">{{this.commentDate}}</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="chatContainer">
-                                        <img src="https://www.w3schools.com/w3images/bandmember.jpg" alt="Avatar"
-                                            style="width:100%;">
-                                        <h6>Vyakti</h6>
-                                        <p style="text-align: left; padding-top:0px">Hello. How are you today?</p>
-                                        <span class="time-right">11:00</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="chatContainer">
-                                        <img src="https://www.w3schools.com/w3images/bandmember.jpg" alt="Avatar"
-                                            style="width:100%;">
-                                        <h6>Deep</h6>
-                                        <p style="text-align: left; padding-top:0px">Hello. How are you today?</p>
-                                        <span class="time-right">11:00</span>
-                                    </div>
-                                </div>
-                            </div>
+                            {{/each}}
                         </div>
-                        <div class=" card-footer">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Type a message"
-                                    aria-label="Recipient's username" aria-describedby="button-addon2">
-                                <button class="btn btn-outline-secondary" type="button" id="button-addon2"><svg
-                                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-send-fill" viewBox="0 0 16 16">
-                                        <path
-                                            d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z" />
-                                    </svg></button>
+
+                        <form id="comments-form" method="POST">
+                            <div class="card-footer">
+
+                                <div class="input-group mb-3">
+                                    <input type="text" name="comment" id="message-text" class="form-control"
+                                        placeholder="Type a message" required>
+                                    <button class="btn btn-outline-secondary" type="submit" id="submit-comment"><svg
+                                            xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+                                            <path
+                                                d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z" />
+                                        </svg></button>
+                                </div>
+
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
+
         </aside>
     </div>
+    {{/if}}
     <div class="col-12 col-xl-9">
         <div class="card postContainer">
             <div class="row">
                 <div class="col">
-                    <h1 class="h2 mb-0 postTitle">Event Name</h1>
+                    <h1 class="h2 mb-0 postTitle">{{data.title}}</h1>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
-                    <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna
-                        aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                        commodo consequat. Duis
-                        aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                        pariatur. Excepteur sint
-                        occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    <p class="description">
+                        {{data.description}}
                     </p>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
-                    Hosted By: FirstName LastName
+                    Participant: {{data.totalParticipant}}/{{data.participantLimit}}
+                </div>
+                <div class="col">
+                    Location: {{data.eventLocation}}
                 </div>
             </div>
             <div class="row">
                 <div class="col">
-                    Event Date: 02-12-2023
+                    Event Date: {{data.eventDate}}
+                </div>
+                <div class="col">
+                    Event Time: {{data.eventTime}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    Perks: {{data.perks}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    Hosted By: {{data.createdBy.0.firstName}} {{data.createdBy.0.lastName}}
                 </div>
             </div>
         </div>
     </div>
+    {{#if data.showButton}}
+    <div class="col-12  col-xl-3">
+        <div class="card postContainer">
+            <div class="row">
+                <div class="col">
+                    <h1 class="h3 mb-0 postTitle">Are you attending?</h1>
+
+                </div>
+            </div>
+
+            <div class="row" style="margin: auto; margin-top: 20px">
+                <div class="col">
+                    <div class="errors">
+                        {{#if errors}}
+                        {{errors}}
+                        {{/if}}
+                    </div>
+                    <form action="rsvp/{{data._id}}" method="post">
+                        <button class="btn btn-primary" type="submit" id="RSVP">RSVP</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/if}}
+    {{#if data.showFull}}
+    <div class="col-12  col-xl-3">
+        <div class="card postContainer">
+            <div class="row">
+                <div class="col">
+                    <h1 class="h3 mb-0 postTitle">Are you attending?</h1>
+
+                </div>
+            </div>
+
+            <div class="row" style="margin: auto; margin-top: 20px">
+                <div class="col">
+                    This event is currently full.
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/if}}
 </div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous">
+    </script>
+<script src="/public/js/eventsDetails.js"></script>
