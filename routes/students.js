@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const valid = require("../data/valid");
 const studentData = require("../data/students");
-const upload = require('../config/multer');
+const { upload } = require('../config/multer');
 const xss = require('xss');
 
 router

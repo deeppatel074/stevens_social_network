@@ -90,5 +90,28 @@ module.exports = {
         if (password !== confirmPassword) {
             throw `Password and confirm password dose not match`;
         }
+    },
+    async validateLimit(participantLimit) {
+        if (!participantLimit) {
+            throw `Enter Participant Limit`;
+        }
+        if (isNaN(participantLimit)) {
+            throw `Participant Limit should be a number`;
+        }
+        participantLimit = Number(participantLimit);
+        if (participantLimit < 2) {
+            throw `Limit can't be less than 2`;
+        }
+        return (participantLimit)
+    },
+
+    async validateEventDate(eventDate) {
+
+        eventDate = new Date(eventDate).toISOString();
+        let today = new Date().toISOString();
+        if (eventDate < today) {
+            throw `Event can't be held before the current date `
+        }
+        return eventDate;
     }
 }

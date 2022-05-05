@@ -1,0 +1,163 @@
+<ul class="nav nav-tabs" style="background-color: white;">
+    <li class="nav-item">
+        <a class="nav-link active" id="nav-Registered" aria-current="page" onclick="openCity('Registered')">My
+            Events</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="nav-Created" onclick="openCity('Created')">Created</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="nav-Create-Event" onclick="openCity('Create-Event')">Create Event</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="nav-Calender" onclick="openCity('Calender')">Calender</a>
+    </li>
+</ul>
+
+{{!-- Registered view here --}}
+<div id="Registered" class="myEve">
+    <div class="row">
+        <div class="col-12 col-xl-9">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <img src="/public/images/background.jpg" class="card-img-top" alt="...">
+                        </div>
+                        <div class="col-6">
+                            <h5 class="card-title">Event Name</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                                of
+                                the card's content.Some quick example text to build on the card title and make up the
+                                bulk
+                                of the card's content.</p>
+                            <div class="row">
+                                <div class="col">
+                                    <p class="card-text">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-clock-fill" viewBox="0 0 16 16">
+                                            <path
+                                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" />
+                                        </svg>
+                                        05-01-2022 10:30
+                                    </p>
+                                </div>
+                                <div class="col">
+                                    <p class="card-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                                            <path
+                                                d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
+                                        </svg> Some Location Here
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{{!-- Created view here --}}
+<div id="Created" class="myEve" style="display:none">
+    <div class="row">
+        <div class="col-12 col-xl-9">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <img src="/public/images/background.jpg" class="card-img-top" alt="...">
+                        </div>
+                        <div class="col-6">
+                            <h5 class="card-title">Event Name</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                                of
+                                the card's content.Some quick example text to build on the card title and make up the
+                                bulk
+                                of the card's content.</p>
+                            <div class="row">
+                                <div class="col">
+                                    <p class="card-text">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-clock-fill" viewBox="0 0 16 16">
+                                            <path
+                                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" />
+                                        </svg>
+                                        05-01-2022 10:30
+                                    </p>
+                                </div>
+                                <div class="col">
+                                    <p class="card-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                                            <path
+                                                d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
+                                        </svg> Some Location Here
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{{!-- Create New view here --}}
+<div id="Create-Event" class="myEve" style="display:none">
+    <div class="signup-box">
+        <h1 class="h3 mb-0">Create Event</h1>
+        <div class="errors">
+            {{#if errors}}
+            {{errors}}
+            {{/if}}
+        </div>
+        <form id="event-registration-form" action="/events/create" method="POST" enctype="multipart/form-data">
+
+            <label for="title"> Title</label>
+            <input type="text" id="title" name="title" placeholder="Title" value="{{eventsPostData.title}}" required>
+
+            <label for="description">Description</label>
+            <textarea style="width: 100%;" id="description" name="description" placeholder="Description"
+                value="{{eventsPostData.description}}" rows="3" required></textarea>
+
+            <label for="eventDate">Event Date Time</label>
+            <input type="datetime-local" id="eventDate" name="eventDate" placeholder="Event Date"
+                value="{{eventsPostData.eventDate}}" required>
+
+
+            <label for="location">Event Location</label>
+            <input type="text" id="location" name="location" placeholder="Event Location" required>
+
+            <label for "participantLimit">Participant Limit</label>
+            <input type="number" min="2" id="participantLimit" name="participantLimit" placeholder="Participant Limit "
+                value="{{eventsPostData.participantLimit}}" required>
+
+            <label for="perks">Perks</label>
+            <input type="text" id="perks" name="perks" placeholder="Perks" required>
+
+            <label for="bannerUrl">Upload Banner Picture</label>
+            <input type="file" id="bannerUrl" name="bannerUrl" placeholder="Banner Image" capture>
+
+            <button id="submitButtonEventRegister" class="buttonRegister" type="submit">Submit</button>
+
+        </form>
+
+    </div>
+</div>
+
+
+
+{{!-- Calender view here --}}
+
+<div id="Calender" class="myEve" style="display:none">
+    <div id="demo-desktop-month-view"></div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous">
+    </script>
+<script src="/public/js/myEvents.js"></script>
