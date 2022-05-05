@@ -88,8 +88,12 @@
                             </div>
             `);
         });
+        $('#scrl').scrollTop($('#scrl')[0].scrollHeight);
     }
+    // $('#chatRow').scrollTop($('#chatRow')[0].scrollHeight);
+    // $('#chatRow').scrollTop($('#chatRow').attr("scrollHeight"));
+    // $("#chatRow").animate({ scrollTop: $("#chatRow")[0].scrollHeight }, 1000);
 })(jQuery);
 
-// var objDiv = document.getElementById("scrl");
-// objDiv.scrollTop = 0 - objDiv.scrollHeight;
+var objDiv = document.getElementsByClassName("chat-body");
+objDiv.scrollTop = objDiv.scrollHeight;

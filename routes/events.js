@@ -20,6 +20,20 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/search', async (req, res) => {
+    if (req.session.user) {
+        let searchTerm = req.query.searchTerm;
+        try {
+            let events = await eventData.getAllActiveEvents(searchTerm);
+            return res.status(200).json(events);
+        } catch (e) {
+            return res.status(400).json(e);
+        }
+    } else {
+        return res.redirect('/');
+    }
+});
+
 
 // will Create Events
 router.post('/create', bannerUpload.single("bannerUrl"), async (req, res) => {

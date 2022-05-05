@@ -42,11 +42,24 @@ module.exports = {
             return ({ eventInserted: true, _id: insertInfo.insertedId.toString() })
         }
     },
-    async getAllActiveEvents() {
+    async getAllActiveEvents(searchParam) {
+        let filter = {}
+        if (searchParam) {
+            filter.title = {
+                $regex: `${searchParam}`,
+                $options: 'i'
+            };
+            filter.description = {
+                $regex: `${searchParam}`,
+                $options: 'i'
+            };
+        }
         const eventCollection = await events();
         const eventDetail = await eventCollection.aggregate([
             {
                 $match: { eventDate: { $gte: new Date() } }
+            }, {
+                $match: filter
             }, {
                 $sort: {
                     eventDate: 1
@@ -66,6 +79,7 @@ module.exports = {
                 }
             }
         ]).toArray();
+        console.log("Details", eventDetail);
         return eventDetail;
     },
 
