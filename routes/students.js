@@ -156,6 +156,57 @@ router
         }
     })
 
+router
+    .route("/myProfile")
+    .get(async (req, res) => {
+        try {
+            if (!req.session.user) {
+                res.status(200).render("students/login", {
+                    title: "Login",
+                    logged : true
+                });
+                return;
+            } else {
+                let profileId = req.session.user._id;
+                let profileData = await studentData.getStudentById(profileId);
+                if (profileData) {
+                    return res.status(200).render("myProfile/myProfile", {
+                        title: "My Profile",
+                        studentPostData: profileData,
+                        logged : true
+                    });
+                } else {
+                    res.status(200).render("students/login", {
+                        title: "Login"
+                    });
+                    return;
+                }
+            }
+        } catch (e) {
+            res.status(500).json({ error: e });
+            return;
+        }
+    })
+    .post(async (req, res) => {
+        try {
+            if (!req.session.user) {
+                res.status(200).render("students/login", {
+                    title: "Login"
+                });
+                return;
+            } else {
+                return res.status(200).render("myProfile/myProfile", {
+                    title: "My Profile"
+
+                });
+                return;
+            }
+        } catch (e) {
+            res.status(500).json({ error: e });
+            return;
+        }
+    });
+
 module.exports = router;
 
 
