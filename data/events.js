@@ -271,5 +271,61 @@ module.exports = {
 
         return { success: true };
 
+    },
+
+    async getMyEvents(userId) {
+        userId = await valid.id(userId);
+        const eventsCollection = await events();
+        //First get all the events which user participated
+        const eventParticipated = await eventsCollection.find({ participants: ObjectId(userId) }, {
+            projection: {
+                _id: 1,
+                title: 1,
+                description: 1,
+                eventDate: { $dateToString: { format: "%m-%d-%Y", date: "$eventDate" } },
+                eventTime: { $dateToString: { format: "%H:%M", date: "$eventDate", timezone: "America/New_York" } },
+                eventLocation: 1,
+                perks: 1,
+                bannerUrl: 1,
+                totalParticipant: { $size: '$participants' },
+                participantLimit: 1,
+            }
+        }).toArray();
+        //Second get all the events which is created by user
+        const eventCreated = await eventsCollection.find({ createdBy: ObjectId(userId) }, {
+            projection: {
+                _id: 1,
+                title: 1,
+                description: 1,
+                eventDate: { $dateToString: { format: "%m-%d-%Y", date: "$eventDate" } },
+                eventTime: { $dateToString: { format: "%H:%M", date: "$eventDate", timezone: "America/New_York" } },
+                eventLocation: 1,
+                perks: 1,
+                bannerUrl: 1,
+                totalParticipant: { $size: '$participants' },
+                participantLimit: 1,
+            }
+        }).toArray();
+
+
+        return {
+            eventParticipated,
+            eventCreated
+        };
+    },
+    async getMyEventsForCal(userId) {
+        userId = await valid.id(userId);
+        const eventsCollection = await events();
+        //First get all the events which user participated
+        const eventParticipated = await eventsCollection.find({ $or: [{ participants: ObjectId(userId) }, { createdBy: ObjectId(userId) }] }, {
+            projection: {
+                title: 1,
+                start: "$eventDate",
+                end: "$eventDate",
+                color: '#913aa7'
+            }
+        }).toArray();
+        console.log("eventDetail", eventParticipated);
+        return eventParticipated;
     }
 };

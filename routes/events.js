@@ -73,16 +73,29 @@ router.post('/create', bannerUpload.single("bannerUrl"), async (req, res) => {
 
 router.get('/myevents', async (req, res) => {
     if (req.session.user) {
-
+        let userId = req.session.user._id
+        userId = await valid.id(userId);
+        let data = await eventData.getMyEvents(userId);
         return res.status(200).render("events/myevents", {
             title: "Create Events",
-            logged: true
+            logged: true,
+            data: data
         });
     } else {
         return res.redirect('/');
     }
 });
 
+router.get('/stats', async (req, res) => {
+    if (req.session.user) {
+        let userId = req.session.user._id
+        userId = await valid.id(userId);
+        let data = await eventData.getMyEventsForCal(userId);
+        return res.status(200).json(data)
+    } else {
+        return res.redirect('/');
+    }
+});
 // will render events detail page
 router.get('/:id', async (req, res) => {
     if (req.session.user) {

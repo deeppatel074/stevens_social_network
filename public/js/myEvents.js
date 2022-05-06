@@ -30,9 +30,11 @@ var inst = mobiscroll.eventcalendar('#demo-desktop-month-view', {
     }
 });
 
-// mobiscroll.util.http.getJson('https://trial.mobiscroll.com/events/?vers=5', function (events) {
-//     inst.setEvents(events);
-// }, 'jsonp');
+
+mobiscroll.util.http.getJson('/events/stats', function (events) {
+    console.log(events);
+    inst.setEvents(events);
+});
 
 
 
@@ -127,5 +129,9 @@ var inst = mobiscroll.eventcalendar('#demo-desktop-month-view', {
         } else {
             submitButton.prop('disabled', false);
         }
+    });
+    $('.clickRow').mouseup((event) => {
+        let href = event.currentTarget.getAttribute('data-href');
+        window.location = href;
     });
 })(jQuery);
