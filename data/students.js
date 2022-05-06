@@ -34,10 +34,12 @@ module.exports = {
         }
         const insertInfo = await studentsCollection.insertOne(newStudent);
         if (!insertInfo.acknowledged || !insertInfo.insertedId) {
-            return ({ studentInserted: false })
+            return null
         }
         else {
-            return ({ studentInserted: true })
+            const newId = insertInfo.insertedId.toString();
+		    const student = await this.getStudentById(newId.toString());
+            return student
         }
     },
 
@@ -79,5 +81,4 @@ module.exports = {
             throw 'User not registered';
         }
     }
-
 }

@@ -104,7 +104,7 @@ router.post('/create', async (req, res) => {
             description = await valid.checkString(description, 'description');
             createdBy = await valid.checkSessionId(createdBy);
             let post = await informativeData.createPost(xss(title), xss(description), xss(createdBy));
-            if (post) {
+            if (post != null || post != undefined) {
                 return res.redirect('/informative');
 
             } else {

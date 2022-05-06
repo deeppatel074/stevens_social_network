@@ -29,10 +29,12 @@ module.exports = {
         const informativeCollection = await informative();
         const insertInfo = await informativeCollection.insertOne(dataToInsert);
         if (!insertInfo.acknowledged || !insertInfo.insertedId) {
-            return false;
+            return null
         }
         else {
-            return true;
+            const newId = insertInfo.insertedId.toString();
+		    const post = await this.getPost(newId)
+            return post
         }
     },
     async getAllPost(searchParam, my, studentId) {
