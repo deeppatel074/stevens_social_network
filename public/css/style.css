@@ -8,6 +8,7 @@ body {
 .signup-box {
   width: 360px;
   margin: auto;
+  margin-top: 20px;
   padding-bottom: 30px;
   background-color: white;
   border-radius: 3px;
@@ -19,9 +20,15 @@ body {
   padding-bottom: 30px;
   border-radius: 3px;
   background-color: white;
+  margin-top: 20px;
 }
 
 h1 {
+
+  padding-top: 15px;
+}
+
+.centerHead {
   text-align: center;
   padding-top: 15px;
 }
@@ -218,6 +225,10 @@ p {
   padding-top: 0px
 }
 
+.chatRow {
+  --bs-gutter-x: 0;
+}
+
 .chatContainer img.right {
   float: right;
   margin-left: 20px;
@@ -256,6 +267,7 @@ p {
 } */
 .bitem {
   color: #0768a5;
+  cursor: pointer;
 }
 
 .row {
@@ -274,7 +286,8 @@ p {
 
 #search-form,
 #post-form,
-#comment-form {
+#comment-form,
+#comments-form {
   margin: auto;
   width: 100%;
 }
@@ -300,6 +313,7 @@ p {
 .card {
   margin-top: 20px;
   margin-left: 5px;
+  width: 100%;
 
 }
 
@@ -331,4 +345,50 @@ p {
   padding-right: 12px;
   animation: type .5s alternate infinite;
   color: white;
+}
+
+/* .col-sm-3 {
+  width: 50%;
+} */
+
+#card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 0 solid transparent;
+  border-radius: .25rem;
+  margin-bottom: 1.5rem;
+  height: 400px;
+}
+
+.me-2 {
+  margin-right: .5rem !important;
+}
+
+#editBtn,
+#saveBtn {
+  background-color: #49c1a2;
+  border: 1px solid gray;
+  color: #444040;
+  margin-top: .1rem;
+}
+
+.container {
+  margin-top: 2rem;
+}
+
+#myProfileImg {
+  border-radius: 50% !important;
+}
+
+#my-profile-form {
+  width: 700px;
+}
+
+.text-muted {
+  padding-top: 0px;
 }

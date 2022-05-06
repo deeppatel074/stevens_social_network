@@ -25,7 +25,7 @@
 
         }
         let emailDomain = info.email.split("@");
-        let extensionstr = emailDomain[1];
+        let extensionstr = emailDomain[1].toLowerCase();
         if (extensionstr !== "stevens.edu") {
             hasErrors = true;
             $(alert).text("Not a valid Stevens Email id");
