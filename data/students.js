@@ -40,6 +40,22 @@ module.exports = {
             return ({ studentInserted: true })
         }
     },
+    
+    async updateStudent(profileId, firstName, lastName, email, phoneNumber) {
+        firstName = await valid.checkString(firstName, "firstName");
+        lastName = await valid.checkString(lastName, "lastName");
+        await valid.validatePhoneNumber(phoneNumber);
+        email = await valid.validateEmail(email);
+        
+        const studentsCollection = await students();
+        const updateProfile = await studentsCollection.updateOne({ _id: ObjectId(profileId) }, { $set: { firstName: firstName, lastName: lastName, email: email, phoneNumber: phoneNumber } });
+        if (!updateProfile.acknowledged) {
+            return ({ studentInserted: false })
+        }
+        else {
+            return ({ studentInserted: true })
+        }
+    },
 
     async checkStudent(email, password) {
         email = await valid.validateEmail(email);
