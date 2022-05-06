@@ -24,6 +24,11 @@ body {
 }
 
 h1 {
+
+  padding-top: 15px;
+}
+
+.centerHead {
   text-align: center;
   padding-top: 15px;
 }

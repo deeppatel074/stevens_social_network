@@ -80,7 +80,7 @@
                                     <div class="chatContainer">
                                         <img src="/public/images/profiles/${element.commentBy[0].profileUrl}" alt="Avatar"
                                             style="width:100%;">
-                                        <h6>${element.commentBy[0].firstName} ${element.commentBy[0].lastName}</h6>
+                                        <h1 class="h6">${element.commentBy[0].firstName} ${element.commentBy[0].lastName}</h1>
                                         <p style="text-align: left; padding-top:0px">${element.comment}</p>
                                         <span class="time-right">${element.commentDate}</span>
                                     </div>

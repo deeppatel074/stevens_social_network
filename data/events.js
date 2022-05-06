@@ -79,7 +79,7 @@ module.exports = {
                 }
             }
         ]).toArray();
-        console.log("Details", eventDetail);
+        // console.log("Details", eventDetail);
         return eventDetail;
     },
 
@@ -87,6 +87,7 @@ module.exports = {
         let isRegistered = false;
         let showButton = true;
         let showFull = false;
+        let isOwner = false;
         id = await valid.id(id);
         // console.log("_Id", id);
         const eventCollection = await events();
@@ -115,6 +116,7 @@ module.exports = {
         } else {
             isRegistered = true;
             showButton = false;
+            isOwner = true;
         }
         const eventDetail = await eventCollection.aggregate([
             {
@@ -150,15 +152,16 @@ module.exports = {
                 }
             }
         ]).toArray();
-        console.log("event Detail", eventDetail);
+        // console.log("event Detail", eventDetail);
         if (eventDetail.length > 0) {
             eventDetail[0].isRegistered = isRegistered;
             eventDetail[0].showButton = showButton;
+            eventDetail[0].isOwner = isOwner;
             eventDetail[0].showFull = showFull;
             if (eventDetail[0].comments.length > 0) {
                 eventDetail[0].comments = await this.getEventComment(id);
             }
-            console.log("event Detail", JSON.stringify(eventDetail[0]));
+            // console.log("event Detail", JSON.stringify(eventDetail[0]));
             return eventDetail[0];
         } else {
             throw "Event Not Found";
@@ -201,7 +204,7 @@ module.exports = {
 
         ]).toArray();
         if (eventDetail.length > 0) {
-            console.log(eventDetail);
+            // console.log(eventDetail);
             return eventDetail;
         } else {
             throw "Event Not Found";
@@ -325,7 +328,7 @@ module.exports = {
                 color: '#913aa7'
             }
         }).toArray();
-        console.log("eventDetail", eventParticipated);
+        // console.log("eventDetail", eventParticipated);
         return eventParticipated;
     }
 };
