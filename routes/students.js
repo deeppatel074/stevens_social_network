@@ -52,7 +52,7 @@ router
             let student = await studentData.checkStudent(xss(email), xss(password));
             if (student.authenticated == true) {
                 req.session.user = { _id: student.data._id.toString(), email: email };
-                return res.redirect('/events/myevents');
+                return res.redirect('/events');
             }
             if (student.authenticated == false && !e) {
                 res.status(500).json(
@@ -108,6 +108,7 @@ router
                 title: "Errors",
                 hasErrorsSign: true,
                 errors: e,
+                logged: true,
                 studentPostData: studentPostData
             });
             return;
@@ -128,6 +129,7 @@ router
                 title: "Errors",
                 hasErrorsSign: true,
                 errors: e,
+                logged: true,
                 studentPostData: studentPostData
             });
             return;
@@ -169,7 +171,8 @@ router
                 if (profileData) {
                     return res.status(200).render("myProfile/myProfile", {
                         title: "My Profile",
-                        studentPostData: profileData
+                        studentPostData: profileData,
+                        logged: true
                     });
                 } else {
                     res.status(500).json({ Error: "Internal Server Error" });
@@ -200,6 +203,7 @@ router
                     res.status(400).render("myProfile/myProfile", {
                         title: "Errors",
                         hasErrors: true,
+                        logged: true,
                         errors: "Internal Server Error",
                         studentPostData: profileData
                     });
@@ -212,6 +216,7 @@ router
                 title: "Errors",
                 hasErrors: true,
                 errors: e,
+                logged: true,
                 studentPostData: profileData
             });
             return;

@@ -359,8 +359,9 @@ p {
   margin-bottom: 1.5rem;
   height: 400px;
 }
+
 .me-2 {
-  margin-right: .5rem!important;
+  margin-right: .5rem !important;
 }
 
 #editBtn,
@@ -374,10 +375,15 @@ p {
 .container {
   margin-top: 2rem;
 }
+
 #myProfileImg {
-  border-radius: 50%!important;
+  border-radius: 50% !important;
 }
+
 #my-profile-form {
   width: 700px;
+}
 
+.text-muted {
+  padding-top: 0px;
 }
