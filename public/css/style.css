@@ -332,7 +332,12 @@ p {
   animation: type .5s alternate infinite;
   color: white;
 }
-.col-lg-4 .card {
+
+/* .col-sm-3 {
+  width: 50%;
+} */
+
+#card {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -343,6 +348,7 @@ p {
   border: 0 solid transparent;
   border-radius: .25rem;
   margin-bottom: 1.5rem;
+  height: 400px;
 }
 .me-2 {
   margin-right: .5rem!important;
@@ -353,9 +359,16 @@ p {
   background-color: #49c1a2;
   border: 1px solid gray;
   color: #444040;
-  margin-top: 2rem;
+  margin-top: .1rem;
 }
 
 .container {
-  margin-top: 10rem;
-} 
+  margin-top: 2rem;
+}
+#myProfileImg {
+  border-radius: 50%!important;
+}
+#my-profile-form {
+  width: 700px;
+
+}

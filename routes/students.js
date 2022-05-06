@@ -161,10 +161,7 @@ router
     .get(async (req, res) => {
         try {
             if (!req.session.user) {
-                res.status(200).render("students/login", {
-                    title: "Login",
-                    logged : true
-                });
+                res.redirect('/');
                 return;
             } else {
                 let profileId = req.session.user._id;
@@ -172,13 +169,10 @@ router
                 if (profileData) {
                     return res.status(200).render("myProfile/myProfile", {
                         title: "My Profile",
-                        studentPostData: profileData,
-                        logged : true
+                        studentPostData: profileData
                     });
                 } else {
-                    res.status(200).render("students/login", {
-                        title: "Login"
-                    });
+                    res.status(500).json({ Error: "Internal Server Error" });
                     return;
                 }
             }
@@ -188,21 +182,38 @@ router
         }
     })
     .post(async (req, res) => {
+        let profileId = req.session.user._id;
+        let profileData = req.body;
         try {
             if (!req.session.user) {
-                res.status(200).render("students/login", {
-                    title: "Login"
-                });
+                res.redirect('/');
                 return;
             } else {
-                return res.status(200).render("myProfile/myProfile", {
-                    title: "My Profile"
-
-                });
-                return;
+                await valid.validatePhoneNumber(profileData.phoneNumber);
+                profileData.email = await valid.validateEmail(profileData.email);
+                let updateProfile = await studentData.updateStudent(profileId, profileData.firstName, profileData.lastName, profileData.email, profileData.phoneNumber);
+                if (updateProfile.studentInserted == true) {
+                    res.redirect('/myProfile');
+                    return;
+                } else if (updateProfile.studentInserted == false) {
+                    profileData = await studentData.getStudentById(profileId);
+                    res.status(400).render("myProfile/myProfile", {
+                        title: "Errors",
+                        hasErrors: true,
+                        errors: "Internal Server Error",
+                        studentPostData: profileData
+                    });
+                    return;
+                }
             }
         } catch (e) {
-            res.status(500).json({ error: e });
+            profileData = await studentData.getStudentById(profileId);
+            res.status(400).render("myProfile/myProfile", {
+                title: "Errors",
+                hasErrors: true,
+                errors: e,
+                studentPostData: profileData
+            });
             return;
         }
     });
