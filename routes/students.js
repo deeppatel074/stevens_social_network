@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const valid = require("../data/valid");
 const studentData = require("../data/students");
-const upload = require('../config/multer');
+const { upload } = require('../config/multer');
 const xss = require('xss');
 
 router
@@ -94,7 +94,7 @@ router
 
     .post(upload.single("profileUrl"), async (req, res) => {
         const studentPostData = req.body;
-        let profilePic = req.file.originalname;
+        let profilePic = req.file.filename;
 
         try {
             studentPostData.firstName = await valid.checkString(studentPostData.firstName, "firstName");
@@ -108,6 +108,7 @@ router
                 title: "Errors",
                 hasErrorsSign: true,
                 errors: e,
+                logged: true,
                 studentPostData: studentPostData
             });
             return;
@@ -128,6 +129,7 @@ router
                 title: "Errors",
                 hasErrorsSign: true,
                 errors: e,
+                logged: true,
                 studentPostData: studentPostData
             });
             return;
@@ -155,6 +157,71 @@ router
             return;
         }
     })
+
+router
+    .route("/myProfile")
+    .get(async (req, res) => {
+        try {
+            if (!req.session.user) {
+                res.redirect('/');
+                return;
+            } else {
+                let profileId = req.session.user._id;
+                let profileData = await studentData.getStudentById(profileId);
+                if (profileData) {
+                    return res.status(200).render("myProfile/myProfile", {
+                        title: "My Profile",
+                        studentPostData: profileData,
+                        logged: true
+                    });
+                } else {
+                    res.status(500).json({ Error: "Internal Server Error" });
+                    return;
+                }
+            }
+        } catch (e) {
+            res.status(500).json({ error: e });
+            return;
+        }
+    })
+    .post(async (req, res) => {
+        let profileId = req.session.user._id;
+        let profileData = req.body;
+        try {
+            if (!req.session.user) {
+                res.redirect('/');
+                return;
+            } else {
+                await valid.validatePhoneNumber(profileData.phoneNumber);
+                profileData.email = await valid.validateEmail(profileData.email);
+                let updateProfile = await studentData.updateStudent(profileId, profileData.firstName, profileData.lastName, profileData.email, profileData.phoneNumber);
+                if (updateProfile.studentInserted == true) {
+                    res.redirect('/myProfile');
+                    return;
+                } else if (updateProfile.studentInserted == false) {
+                    profileData = await studentData.getStudentById(profileId);
+                    res.status(400).render("myProfile/myProfile", {
+                        title: "Errors",
+                        hasErrors: true,
+                        logged: true,
+                        errors: "Internal Server Error",
+                        studentPostData: profileData
+                    });
+                    return;
+                }
+            }
+        } catch (e) {
+            profileData = await studentData.getStudentById(profileId);
+            res.status(400).render("myProfile/myProfile", {
+                title: "Errors",
+                hasErrors: true,
+                errors: e,
+                logged: true,
+                studentPostData: profileData
+            });
+            return;
+        }
+    });
 
 module.exports = router;
 
