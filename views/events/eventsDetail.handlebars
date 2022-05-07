@@ -113,6 +113,16 @@
                         data-bs-target="#deleteModel">Delete Event</button>
                 </div>
             </div>
+            {{else}}
+            {{#if data.isRegistered}}
+            <div class="row" style="margin-top: 20px;">
+                <div class="col">
+                    Not able to attend?
+                    <button type=" button" class="btn btn-primary updateRSVP">Update
+                        RSVP</button>
+                </div>
+            </div>
+            {{/if}}
             {{/if}}
         </div>
     </div>

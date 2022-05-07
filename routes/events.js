@@ -125,7 +125,7 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/rsvp/:id', async (req, res) => {
     if (req.session.user) {
         try {
             let id = req.params.id;
@@ -134,11 +134,11 @@ router.delete('/:id', async (req, res) => {
             let userId = req.session.user._id
             userId = await valid.id(userId);
             // let data = await eventData.getEventDetail(id, userId);
-            let removeParticipant = await eventData.removeParticipant(id,userId);
+            let removeParticipant = await eventData.removeParticipant(id, userId);
             // return res.json(data);
-            if(removeParticipant){
-               res.status(200).redirect("/:id");
-            }else{
+            if (removeParticipant) {
+                res.status(200).json({ deleted: true });
+            } else {
                 console.log(removeParticipant);
             }
         } catch (e) {
@@ -146,7 +146,7 @@ router.delete('/:id', async (req, res) => {
             return res.status(404).render("errors/errors", {
                 title: "Error",
                 logged: true,
-                error: "Events Not Found",
+                error: e,
                 code: 404
             });
         }
