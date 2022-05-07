@@ -468,5 +468,24 @@ module.exports = {
             }
         }
         return;
+    },
+    async removeParticipant(eventId, userId) {
+        eventId = await valid.id(eventId);
+        userId = await valid.id(userId);
+        const eventCollection = await events();
+        let updateInfo = await eventCollection.updateOne(
+            {
+                $and: [
+                    { _id: ObjectId(eventId) },
+                    { participants: ObjectId(userId) }
+                ]
+            },
+            { $pull: { participants: ObjectId(userId) } }
+        );
+        if (!updateInfo.matchedCount && !updateInfo.modifiedCount) {
+            return false;
+        } else {
+            return true;
+        }
     }
 };

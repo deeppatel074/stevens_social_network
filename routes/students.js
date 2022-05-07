@@ -117,7 +117,7 @@ router
         try {
             // const {firstName, lastName,email,password,phoneNumber,profileUrl} =  studentPostData
             let student = await studentData.createStudent(xss(studentPostData.firstName), xss(studentPostData.lastName), xss(studentPostData.email), xss(studentPostData.password), xss(studentPostData.phoneNumber), xss(profilePic));
-            if (student.studentInserted == true) {
+            if (student != null || student != undefined) {
                 res.redirect('/events');
                 return;
             } if (student.studentInserted == false && !e) {

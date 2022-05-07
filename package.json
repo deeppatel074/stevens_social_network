@@ -19,7 +19,6 @@
   },
   "homepage": "https://github.com/deeppatel074/stevens_social_network#readme",
   "dependencies": {
-    "axios": "^0.26.1",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "bootstrap-icons": "^1.8.1",
