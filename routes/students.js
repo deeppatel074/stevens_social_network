@@ -167,7 +167,7 @@ router
                 return;
             } else {
                 let profileId = req.session.user._id;
-                let profileData = await studentData.getStudentById(profileId);
+                let profileData = await studentData.getStudentById(xss(profileId));
                 if (profileData) {
                     return res.status(200).render("myProfile/myProfile", {
                         title: "My Profile",
@@ -194,12 +194,12 @@ router
             } else {
                 await valid.validatePhoneNumber(profileData.phoneNumber);
                 profileData.email = await valid.validateEmail(profileData.email);
-                let updateProfile = await studentData.updateStudent(profileId, profileData.firstName, profileData.lastName, profileData.email, profileData.phoneNumber);
+                let updateProfile = await studentData.updateStudent(xss(profileId), xss(profileData.firstName), xss(profileData.lastName), xss(profileData.email), xss(profileData.phoneNumber));
                 if (updateProfile.studentInserted == true) {
                     res.redirect('/myProfile');
                     return;
                 } else if (updateProfile.studentInserted == false) {
-                    profileData = await studentData.getStudentById(profileId);
+                    profileData = await studentData.getStudentById(xss(profileId));
                     res.status(400).render("myProfile/myProfile", {
                         title: "Errors",
                         hasErrors: true,
@@ -211,7 +211,7 @@ router
                 }
             }
         } catch (e) {
-            profileData = await studentData.getStudentById(profileId);
+            profileData = await studentData.getStudentById(xss(profileId));
             res.status(400).render("myProfile/myProfile", {
                 title: "Errors",
                 hasErrors: true,
