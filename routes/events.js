@@ -125,6 +125,35 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+router.delete('/:id', async (req, res) => {
+    if (req.session.user) {
+        try {
+            let id = req.params.id;
+            id = await valid.id(id);
+            // console.log("Id", id);
+            let userId = req.session.user._id
+            userId = await valid.id(userId);
+            // let data = await eventData.getEventDetail(id, userId);
+            let removeParticipant = await eventData.removeParticipant(id,userId);
+            // return res.json(data);
+            if(removeParticipant){
+               res.status(200).redirect("/:id");
+            }else{
+                console.log(removeParticipant);
+            }
+        } catch (e) {
+            // return res.json(e);
+            return res.status(404).render("errors/errors", {
+                title: "Error",
+                logged: true,
+                error: "Events Not Found",
+                code: 404
+            });
+        }
+    } else {
+        return res.redirect('/');
+    }
+});
 
 router.get('/edit/:id', async (req, res) => {
     if (req.session.user) {
