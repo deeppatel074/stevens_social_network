@@ -1,7 +1,7 @@
 (function ($) {
+    var url = window.location.pathname;
+    var id = url.substring(url.lastIndexOf('/') + 1);
     function onPageLoad() {
-        var url = window.location.pathname;
-        var id = url.substring(url.lastIndexOf('/') + 1);
         $('.chat-body').html(` `);
         var requestConfig = {
             method: 'GET',
@@ -12,13 +12,11 @@
             bindChatToCard(newElement);
 
         });
-        // $(".card-body").scrollTop = $(".card-body").scrollHeight;
     }
     let postForm = $('#comments-form')
     let commentInput = $('#message-text');
     let submitButton = $('#submit-comment');
     postForm.submit((event) => {
-        // console.log("submit on");
         event.preventDefault();
         submitButton.prop('disabled', true);
 
@@ -27,14 +25,14 @@
         };
 
         let hasErrors = false;
-        // if (!info.comment) {
-        //     addAlert("Message should not be empty", "danger")
-        //     hasErrors = true;
-        // }
+        if (!info.comment) {
+            $('#error').prop('hidden', false);
+            $('#error').html(`Message Should not be empty
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>`);
+
+            hasErrors = true;
+        }
         if (!hasErrors) {
-            var url = window.location.pathname;
-            var id = url.substring(url.lastIndexOf('/') + 1);
-            // console.log("url", id)
             var requestConfig = {
                 method: 'POST',
                 url: `/events/chats/${id}`,
@@ -43,6 +41,10 @@
                 dataType: "json",
                 error: function (e) {
                     var newElement = $(e);
+                    let errorMsg = newElement[0].responseJSON.error;
+                    $('#error').prop('hidden', false);
+                    $('#error').html(`${errorMsg}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>`);
 
                 },
                 success: function (s) {
@@ -57,20 +59,28 @@
             submitButton.prop('disabled', false);
         }
     });
-    // function onPageLoad() {
-    //     var url = window.location.pathname;
-    //     var id = url.substring(url.lastIndexOf('/') + 1);
-    //     $('.chat-body').html(` `);
-    //     var requestConfig = {
-    //         method: 'GET',
-    //         url: `/events/chats/${id}`
-    //     };
-    //     $.ajax(requestConfig).then(function (responseMessage) {
-    //         var newElement = $(responseMessage);
-    //         bindChatToCard(newElement);
 
-    //     });
-    // }
+    $(".deleteEve").on("click", function () {
+        var requestConfig = {
+            method: 'DELETE',
+            url: `/events/${id}`,
+            error: function (e) {
+                var newElement = $(e);
+                let errorMsg = newElement[0].responseJSON.error
+                $('#deleteModel').modal('hide');
+                $('#error').prop('hidden', false);
+                $('#error').html(`${errorMsg}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>`)
+            },
+            success: function (s) {
+                var newElement = $(s);
+                if (newElement[0].deleted) {
+                    window.location = '/events/myevents';
+                }
+            }
+        };
+        $.ajax(requestConfig);
+    });
 
     function bindChatToCard(chats) {
         $.each(chats, (key, element) => {
@@ -88,12 +98,8 @@
                             </div>
             `);
         });
-        $('#scrl').scrollTop($('#scrl')[0].scrollHeight);
     }
-    // $('#chatRow').scrollTop($('#chatRow')[0].scrollHeight);
-    // $('#chatRow').scrollTop($('#chatRow').attr("scrollHeight"));
-    // $("#chatRow").animate({ scrollTop: $("#chatRow")[0].scrollHeight }, 1000);
+    $('.edit').on("click", function () {
+        window.location = `/events/edit/${id}`
+    });
 })(jQuery);
-
-var objDiv = document.getElementsByClassName("chat-body");
-objDiv.scrollTop = objDiv.scrollHeight;
