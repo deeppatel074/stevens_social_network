@@ -187,18 +187,17 @@
             <input type="text" id="title" name="title" placeholder="Title" value="{{eventsPostData.title}}" required>
 
             <label for="description">Description</label>
-            <textarea style="width: 100%;" id="description" name="description" placeholder="Description"
-                value="{{eventsPostData.description}}" rows="3" required></textarea>
+            <textarea style="width: 100%;" id="description" name="description" placeholder="Description" rows="3"
+                required>{{eventsPostData.description}}</textarea>
 
             <label for="eventDate">Event Date Time</label>
-            <input type="datetime-local" id="eventDate" name="eventDate" placeholder="Event Date"
-                value="{{eventsPostData.eventDate}}" required>
+            <input type="datetime-local" id="eventDate" name="eventDate" value="{{eventsPostData.eventDate}}" required>
 
 
             <label for="location">Event Location</label>
             <input type="text" id="location" name="location" placeholder="Event Location" required>
 
-            <label for "participantLimit">Participant Limit</label>
+            <label for="participantLimit">Participant Limit</label>
             <input type="number" min="2" id="participantLimit" name="participantLimit" placeholder="Participant Limit "
                 value="{{eventsPostData.participantLimit}}" required>
 
@@ -206,7 +205,7 @@
             <input type="text" id="perks" name="perks" placeholder="Perks" required>
 
             <label for="bannerUrl">Upload Banner Picture</label>
-            <input type="file" id="bannerUrl" name="bannerUrl" placeholder="Banner Image" capture>
+            <input type="file" id="bannerUrl" name="bannerUrl">
 
             <button id="submitButtonEventRegister" class="buttonRegister" type="submit">Submit</button>
 

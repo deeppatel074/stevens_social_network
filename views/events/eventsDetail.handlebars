@@ -7,7 +7,7 @@
     </div>
 </nav>
 <div class="row">
-    <div class="alert alert-danger alert-dismissible fade show" id="error" role="alert" hidden="true">
+    <div class="alert alert-danger alert-dismissible fade show" id="error" role="alert" hidden>
     </div>
     <!--Aside Section-->
     {{#if data.isRegistered}}
@@ -107,10 +107,10 @@
             {{#if data.isOwner}}
             <div class="row" style="margin-top: 20px;">
                 <div class="col">
-                    <button type="button" class="btn btn-primary edit">Edit
+                    <button class="btn btn-primary edit">Edit
                         Event</button>
-                    <button type=" button" class="btn btn-danger" data-bs-toggle="modal"
-                        data-bs-target="#deleteModel">Delete Event</button>
+                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModel">Delete
+                        Event</button>
                 </div>
             </div>
             {{else}}
@@ -118,7 +118,7 @@
             <div class="row" style="margin-top: 20px;">
                 <div class="col">
                     Not able to attend?
-                    <button type=" button" class="btn btn-primary updateRSVP">Update
+                    <button class="btn btn-primary updateRSVP">Update
                         RSVP</button>
                 </div>
             </div>
@@ -177,14 +177,14 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title h5" id="exampleModalLabel">Modal title</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 Do you really want to delete this event?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger deleteEve">Delete</button>
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button class="btn btn-danger deleteEve">Delete</button>
             </div>
         </div>
     </div>
