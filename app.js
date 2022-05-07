@@ -4,6 +4,8 @@ const session = require('express-session');
 const configRoutes = require('./routes');
 const exphbs = require('express-handlebars');
 const static = express.static(__dirname + '/public');
+const cron = require('node-cron');
+const { getEventsForMailer } = require('./data/events')
 
 
 app.use('/public', static);
@@ -49,11 +51,14 @@ app.use(async (req, res, next) => {
   next();
 
 })
-
-
-
-
 configRoutes(app);
+
+cron.schedule('* * * * *', async function () {
+  console.log("Cron Job Started");
+  await getEventsForMailer();
+}, {
+  timezone: 'America/New_York'
+});
 
 
 app.listen(3000, () => {
