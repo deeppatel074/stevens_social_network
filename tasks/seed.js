@@ -49,13 +49,13 @@ async function main(){
 
 
     try{
-        deep = await studentData.createStudent("Deep","Patel", "dpatel@stevens.edu","dpatel@123","5514258288","3.png");
+        deep = await studentData.createStudent("Deep","Patel", "dpatel18@stevens.edu","dpatel@123","5514258288","3.png");
     }catch(e){
         console.log(e);
     }
 
     try{
-       vyaqti = await studentData.createStudent("Vyaqti","Vikas", "vsingh@stevens.edu","vsingh@123","5524232288","6.png");
+       vyaqti = await studentData.createStudent("Vyaqti","Vikas", "vsingh22@stevens.edu","vsingh@123","5524232288","6.png");
     }catch(e){
         console.log(e);
     }
