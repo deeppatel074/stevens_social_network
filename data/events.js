@@ -3,6 +3,7 @@ const mongoCollections = require('../config/mongoCollections.js');
 const events = mongoCollections.events;
 const valid = require("./valid");
 const students = require('./students');
+const { send } = require('../config/mailer');
 
 module.exports = {
     async createEvents(title, description, eventDate, location, perks, participantLimit, bannerUrl, userId) {
@@ -240,7 +241,7 @@ module.exports = {
                     _id: 0,
                     commentBy: "$comments.commentBy",
                     comment: "$comments.comment",
-                    commentDate: { $dateToString: { format: "%m-%d-%Y %H:%M:%S", date: "$createdAt", timezone: "America/New_York" } }
+                    commentDate: { $dateToString: { format: "%m-%d-%Y %H:%M:%S", date: "$comments.commentDate", timezone: "America/New_York" } }
                 }
             }
 
@@ -402,5 +403,70 @@ module.exports = {
         if (!deleteData.acknowledged && !deleteData.deleteCount)
             throw 'Update failed';
         return true;
+    },
+    async getEventsForMailer() {
+        let currentDate = new Date();
+        let afterFourHours = new Date()
+        afterFourHours = afterFourHours.setHours(afterFourHours.getHours() + 4)
+        console.log('Getting');
+        const eventCollection = await events();
+        let eventData = await eventCollection.aggregate([
+            {
+                $match: {
+
+                    eventDate: {
+                        $gte: currentDate,
+                        $lt: new Date(afterFourHours)
+                    }
+                }
+
+            }, {
+                $match: {
+                    status: Number(0)
+                }
+            },
+            {
+                $unwind: "$participants"
+            }, {
+                $lookup:
+                {
+                    from: "students",
+                    localField: "participants",
+                    foreignField: "_id",
+                    pipeline: [{
+                        $project: {
+                            _id: 0,
+                            firstName: 1,
+                            lastName: 1,
+                            email: 1
+                        }
+                    }],
+                    as: "participants"
+                }
+            }, {
+                $project: {
+                    _id: 0,
+                    title: 1,
+                    eventTime: { $dateToString: { format: "%H:%M", date: "$eventDate", timezone: "America/New_York" } },
+                    participants: 1
+                }
+            }]).toArray();
+        if (eventData.length > 0) {
+            await eventCollection.updateMany({
+                eventDate: {
+                    $gte: currentDate,
+                    $lt: new Date(afterFourHours)
+                }
+            }, [{ $set: { status: 1 } }]);
+            for (let item of eventData) {
+                let data = {
+                    name: item.participants[0].firstName + " " + item.participants[0].lastName,
+                    title: item.title,
+                    eventTime: item.eventTime
+                }
+                send(item.participants[0].email, `Event Reminder:${data.title}`, data)
+            }
+        }
+        return;
     }
 };
