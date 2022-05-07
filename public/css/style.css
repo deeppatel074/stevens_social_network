@@ -286,7 +286,8 @@ p {
 #search-form,
 #post-form,
 #comment-form,
-#comments-form {
+#comments-form,
+#my-profile-form {
   margin: auto;
   width: 100%;
 }
@@ -382,10 +383,6 @@ p {
 
 #myProfileImg {
   border-radius: 50% !important;
-}
-
-#my-profile-form {
-  width: 700px;
 }
 
 .text-muted {

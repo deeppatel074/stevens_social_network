@@ -7,6 +7,8 @@
     </div>
 </nav>
 <div class="row">
+    <div class="alert alert-danger alert-dismissible fade show" id="error" role="alert" hidden="true">
+    </div>
     <!--Aside Section-->
     {{#if data.isRegistered}}
     <div class="col-12  col-xl-3" id="chatRow">
@@ -105,7 +107,8 @@
             {{#if data.isOwner}}
             <div class="row" style="margin-top: 20px;">
                 <div class="col">
-                    <button type="button" class="btn btn-primary">Edit Event</button>
+                    <button type="button" class="btn btn-primary edit">Edit
+                        Event</button>
                     <button type=" button" class="btn btn-danger" data-bs-toggle="modal"
                         data-bs-target="#deleteModel">Delete Event</button>
                 </div>
@@ -171,7 +174,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger">Delete</button>
+                <button type="button" class="btn btn-danger deleteEve">Delete</button>
             </div>
         </div>
     </div>
