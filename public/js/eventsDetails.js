@@ -102,4 +102,25 @@
     $('.edit').on("click", function () {
         window.location = `/events/edit/${id}`
     });
+    $('.updateRSVP').on("click", function () {
+        var requestConfig = {
+            method: 'DELETE',
+            url: `/events/rsvp/${id}`,
+            error: function (e) {
+                var newElement = $(e);
+                let errorMsg = newElement[0].responseJSON.error
+                $('#deleteModel').modal('hide');
+                $('#error').prop('hidden', false);
+                $('#error').html(`${errorMsg}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>`)
+            },
+            success: function (s) {
+                var newElement = $(s);
+                if (newElement[0].deleted) {
+                    window.location.reload();
+                }
+            }
+        };
+        $.ajax(requestConfig);
+    });
 })(jQuery);
