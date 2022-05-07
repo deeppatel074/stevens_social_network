@@ -157,7 +157,7 @@ module.exports = {
                     _id: 0,
                     commentBy: "$discussion.commentBy",
                     comment: "$discussion.comment",
-                    commentDate: { $dateToString: { format: "%Y-%m-%d %H:%M:%S", date: "$createdAt", timezone: "America/New_York" } }
+                    commentDate: { $dateToString: { format: "%Y-%m-%d %H:%M:%S", date: "$discussion.commentDate", timezone: "America/New_York" } }
                 }
             }
         ]).toArray();

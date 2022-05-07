@@ -241,7 +241,7 @@ module.exports = {
                     _id: 0,
                     commentBy: "$comments.commentBy",
                     comment: "$comments.comment",
-                    commentDate: { $dateToString: { format: "%m-%d-%Y %H:%M:%S", date: "$createdAt", timezone: "America/New_York" } }
+                    commentDate: { $dateToString: { format: "%m-%d-%Y %H:%M:%S", date: "$comments.commentDate", timezone: "America/New_York" } }
                 }
             }
 
