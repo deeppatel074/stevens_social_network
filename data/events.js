@@ -30,7 +30,7 @@ module.exports = {
             comments: [],
             createdBy: ObjectId(userId),
             createdAt: new Date(),
-            status: 1
+            status: 0
         }
 
         const eventCollection = await events();
@@ -41,6 +41,48 @@ module.exports = {
         else {
             return ({ eventInserted: true, _id: insertInfo.insertedId.toString() })
         }
+    },
+    async editEvents(title, description, eventDate, location, perks, participantLimit, userId, eventId) {
+        title = await valid.checkString(title, "title");
+        description = await valid.checkString(description, "description");
+        await valid.validateEventDate(eventDate);
+        participantLimit = await valid.validateLimit(participantLimit);
+        location = await valid.checkString(location, "location");
+        perks = await valid.checkString(perks, "perks");
+        eventId = await valid.id(eventId);
+        userId = await valid.id(userId);
+
+        const eventCollection = await events();
+        const oldEvent = await this.getEventById(eventId, userId);
+        if (!oldEvent) {
+            throw 'Event not found!!';
+        }
+        if (oldEvent.createdBy.toString() !== userId.toString()) throw "Unauthorized user";
+
+        let dataToUpdate = {
+            title: title,
+            description: description,
+            eventDate: new Date(eventDate),
+            eventLocation: location,
+            participants: oldEvent.participants,
+            participantLimit: participantLimit,
+            bannerUrl: oldEvent.bannerUrl,
+            perks: perks,
+            comments: oldEvent.comments,
+            createdBy: ObjectId(oldEvent.createdBy),
+            createdAt: new Date(oldEvent.createdAt),
+            status: 0
+        }
+
+        const updateInfo = await eventCollection.updateOne(
+            { _id: ObjectId(eventId) },
+            { $set: dataToUpdate }
+        );
+        if (!updateInfo.matchedCount && !updateInfo.modifiedCount)
+            throw 'Update failed';
+        return true
+
+
     },
     async getAllActiveEvents(searchParam) {
         let filter = {}
@@ -330,5 +372,35 @@ module.exports = {
         }).toArray();
         // console.log("eventDetail", eventParticipated);
         return eventParticipated;
+    },
+    async getEventById(eventId, userId) {
+        eventId = await valid.id(eventId);
+        userId = await valid.id(userId);
+        const eventCollection = await events();
+        let eventData = await eventCollection.findOne({ "_id": ObjectId(eventId) });
+        if (eventData) {
+            console.log(eventData);
+            eventData.eventDate = new Date(eventData.eventDate).toISOString().replace('Z', '');
+            return eventData;
+        } else {
+            throw "Error while getting event"
+        }
+    },
+
+    async deleteEvent(eventId, userId) {
+
+        eventId = await valid.id(eventId);
+        userId = await valid.id(userId);
+        const eventCollection = await events();
+        console.log("Here in before");
+        let eventData = await eventCollection.findOne({ "_id": ObjectId(eventId) });
+        if (eventData === null) throw 'No event found with this id.';
+        console.log("Here in after", eventData);
+        if (eventData.createdBy.toString() !== userId.toString()) throw 'Unauthorized User..';
+
+        let deleteData = await eventCollection.deleteOne({ "_id": ObjectId(eventId) });
+        if (!deleteData.acknowledged && !deleteData.deleteCount)
+            throw 'Update failed';
+        return true;
     }
 };

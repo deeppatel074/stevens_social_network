@@ -126,6 +126,68 @@ router.get('/:id', async (req, res) => {
 });
 
 
+router.get('/edit/:id', async (req, res) => {
+    if (req.session.user) {
+        try {
+            let eventId = req.params.id;
+            let userId = req.session.user._id;
+            eventId = await valid.id(eventId);
+            userId = await valid.id(userId);
+            let data = await eventData.getEventById(eventId, userId);
+            return res.status(200).render('events/eventEdit', {
+                title: "Edit Event",
+                logged: true,
+                eventsPostData: data,
+            });
+
+        } catch (e) {
+            return res.status(400).json(e);
+        }
+    } else {
+        return res.redirect('/');
+    }
+});
+
+router.post('/edit/:id', async (req, res) => {
+    if (req.session.user) {
+        let eventId = req.params.id;
+        let userId = req.session.user._id;
+        const eventsPostData = req.body;
+
+        try {
+            eventsPostData.title = await valid.checkString(eventsPostData.title, "title");
+            eventsPostData.description = await valid.checkString(eventsPostData.description, "description");
+            await valid.validateEventDate(eventsPostData.eventDate);
+            eventsPostData.participantLimit = await valid.validateLimit(eventsPostData.participantLimit);
+            eventsPostData.perks = await valid.checkString(eventsPostData.perks, "perks");
+            eventsPostData.location = await valid.checkString(eventsPostData.location, "location");
+            eventId = await valid.id(eventId);
+            userId = await valid.id(userId);
+            const { title, description, eventDate, location, perks, participantLimit } = eventsPostData
+            let event = await eventData.editEvents(xss(title), xss(description), xss(eventDate), xss(location), xss(perks), xss(participantLimit), xss(userId), xss(eventId));
+            if (event == true) {
+                return res.redirect(`/events/${eventId}`);
+            } else {
+                return res.status(400).render('events/eventEdit', {
+                    title: "Edit Event",
+                    logged: true,
+                    errors: "Internal Server Error",
+                    eventsPostData: eventsPostData,
+                });
+            }
+        } catch (e) {
+            return res.status(400).render('events/eventEdit', {
+                title: "Edit Event",
+                logged: true,
+                errors: e,
+                eventsPostData: eventsPostData,
+            });
+        }
+    } else {
+        return res.redirect('/');
+    }
+});
+
 router.get('/chats/:id', async (req, res) => {
     if (req.session.user) {
         try {
@@ -179,6 +241,30 @@ router.post('/rsvp/:id', async (req, res) => {
     }
 });
 
+router.delete('/:id', async (req, res) => {
+    if (req.session.user) {
+        console.log("satarted");
+        let eventId = req.params.id;
+        let userId = req.session.user._id;
+        try {
+            eventId = await valid.id(eventId);
+            userId = await valid.id(userId);
+        } catch (e) {
+            return res.status(400).json({ "error": e });
+        }
+        try {
+            console.log("going to data");
+            const deletedInfo = await eventData.deleteEvent(eventId, userId);
+            if (deletedInfo) {
+                return res.status(200).json({ deleted: true });
+            }
+        } catch (e) {
+            return res.status(500).json({ "error": e });
+        }
+    } else {
+        return res.redirect('/');
+    }
+});
 
 
 module.exports = router;
