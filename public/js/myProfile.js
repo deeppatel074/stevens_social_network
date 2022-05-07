@@ -1,33 +1,41 @@
 (function ($) {
-    let signupForm = $('#signup-form');
+    let myProfileForm = $('#my-profile-form');
     let firstName = $('#firstName');
     let lastName = $('#lastName');
     let email = $('#email');
-    let password = $('#password');
-    let confirmPassword = $('#confirmPassword');
     let phoneNumber = $('#phoneNumber');
-    let profileUrl = $('#profileUrl');
-    let submitButton = $('#submitButton');
+    let editButton = $('#editBtn');
+    let saveButton = $('#saveBtn');
     let alert = $('.errors');
 
-    signupForm.submit((event) => {
+    document.getElementById("firstName").disabled = true;
+    document.getElementById("lastName").disabled = true;
+    document.getElementById("email").disabled = true;
+    document.getElementById("phoneNumber").disabled = true;
+    saveButton.hide();
+
+    editButton.click(function () {
+        document.getElementById("firstName").disabled = false;
+        document.getElementById("lastName").disabled = false;
+        document.getElementById("email").disabled = false;
+        document.getElementById("phoneNumber").disabled = false;
+        editButton.hide();
+        saveButton.show();
+    });
+
+    saveButton.submit((event) => {
         let hasErrors = false;
         event.preventDefault();
-        submitButton.prop('disabled', true);
+        saveButton.prop('disabled', true);
         let info = {
             firstName: firstName.val().trim(),
             lastName: lastName.val().trim(),
             email: email.val().trim(),
-            password: password.val().trim(),
-            confirmPassword: confirmPassword.val().trim(),
-            phoneNumber: phoneNumber.val().trim(),
-            profileUrl: profileUrl.val().trim()
-
+            phoneNumber: phoneNumber.val().trim()
         };
 
-
         //Check all fields
-        if (!info.firstName || !info.lastName || !info.email || !info.password || !info.confirmPassword || !info.phoneNumber || !info.profileUrl) {
+        if (!info.firstName || !info.lastName || !info.email || !info.phoneNumber) {
             $(alert).text("*All fields are required");
             hasErrors = true;
         }
@@ -47,29 +55,14 @@
         if (info.email.includes("@") == false) {
             hasErrors = true;
             $(alert).text("Not a valid Email ID");
-
         }
+
         let emailDomain = info.email.split("@");
         let extensionstr = emailDomain[1];
         if (extensionstr !== "stevens.edu") {
             hasErrors = true;
             $(alert).text("Not a valid Stevens Email id");
 
-        }
-
-        // check password
-        if (info.password.length === 0) {
-            hasErrors = true;
-            $(alert).text("Password is EMPTY");
-        } else if (info.password.length < 6) {
-            hasErrors = true;
-            $(alert).text("Password should be ATLEAST 6 characters long.");
-        }
-
-        //check confirm password
-        if (info.password !== info.confirmPassword) {
-            hasErrors = true;
-            $(alert).text("Password and confirm password dose not match");
         }
 
         //check phoneNumber
@@ -80,9 +73,10 @@
         }
 
         if (!hasErrors) {
-            signupForm.unbind().submit();
-        } else {
-            submitButton.prop('disabled', false);
+            saveButton.unbind().submit();
+        }
+        else {
+            saveButton.prop('disabled', false);
         }
     });
 })(jQuery);
