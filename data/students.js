@@ -1,4 +1,3 @@
-const axios = require("axios");
 const mongoCollections = require('../config/mongoCollections.js');
 const students = mongoCollections.students;
 const { ObjectId } = require('mongodb');
@@ -38,7 +37,7 @@ module.exports = {
         }
         else {
             const newId = insertInfo.insertedId.toString();
-		    const student = await this.getStudentById(newId.toString());
+            const student = await this.getStudentById(newId.toString());
             return student
         }
     },
