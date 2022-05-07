@@ -59,7 +59,7 @@ async function main(){
     }catch(e){
         console.log(e);
     }
-
+    
     try{
         jesica_post = await informativeData.createPost("How can I contact the graduate office?","I want to update my address, can anyone help me with updating it?", jesica._id.toString());
     }catch(e){
