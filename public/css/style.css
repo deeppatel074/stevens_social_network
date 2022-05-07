@@ -382,7 +382,8 @@ p {
 }
 
 #myProfileImg {
-  border-radius: 50% !important;
+  border-radius: 50%!important;
+  width : 166px;
 }
 
 .text-muted {
