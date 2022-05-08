@@ -111,10 +111,10 @@ router.get('/:id', async (req, res) => {
         try {
             let id = req.params.id;
             id = await valid.id(id);
-            // console.log("Id", id);
+
             let userId = req.session.user._id
             let data = await eventData.getEventDetail(xss(id), xss(userId));
-            // return res.json(data);
+
             return res.status(200).render("events/eventsDetail", {
                 title: "Events",
                 logged: true,
@@ -139,7 +139,7 @@ router.delete('/rsvp/:id', async (req, res) => {
         try {
             let id = req.params.id;
             id = await valid.id(id);
-            // console.log("Id", id);
+
             let userId = req.session.user._id
             userId = await valid.id(userId);
             // let data = await eventData.getEventDetail(id, userId);
@@ -148,7 +148,7 @@ router.delete('/rsvp/:id', async (req, res) => {
             if (removeParticipant) {
                 res.status(200).json({ deleted: true });
             } else {
-                console.log(removeParticipant);
+
             }
         } catch (e) {
             // return res.json(e);
@@ -233,7 +233,7 @@ router.get('/chats/:id', async (req, res) => {
         try {
             let id = req.params.id;
             id = await valid.id(id);
-            // console.log("Id", id);
+
             let data = await eventData.getEventComment(xss(id));
             return res.status(200).json(data);
 
@@ -283,7 +283,7 @@ router.post('/rsvp/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
     if (req.session.user) {
-        console.log("satarted");
+
         let eventId = req.params.id;
         let userId = req.session.user._id;
         try {
@@ -293,7 +293,7 @@ router.delete('/:id', async (req, res) => {
             return res.status(400).json({ "error": e });
         }
         try {
-            console.log("going to data");
+
             const deletedInfo = await eventData.deleteEvent(xss(eventId), xss(userId));
             if (deletedInfo) {
                 return res.status(200).json({ deleted: true });

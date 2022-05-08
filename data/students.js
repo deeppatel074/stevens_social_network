@@ -45,6 +45,7 @@ module.exports = {
         firstName = await valid.checkString(firstName, "firstName");
         lastName = await valid.checkString(lastName, "lastName");
         await valid.validatePhoneNumber(phoneNumber);
+        profileId = await valid.id(profileId);
         email = await valid.validateEmail(email);
 
         const studentsCollection = await students();
@@ -81,6 +82,7 @@ module.exports = {
     },
 
     async getProfileUrl(email) {
+        email = await valid.validateEmail(email);
         const studentsCollection = await students();
         const student = await studentsCollection.findOne({ email: { '$regex': `^${email}$`, '$options': 'i' } });
         if (student) {

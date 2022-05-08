@@ -54,7 +54,7 @@ app.use(async (req, res, next) => {
 configRoutes(app);
 
 cron.schedule('* * * * *', async function () {
-  console.log("Cron Job Started");
+  console.log(`[${new Date().toUTCString()}]: Cron Job Started For Notification`);
   await getEventsForMailer();
 }, {
   timezone: 'America/New_York'

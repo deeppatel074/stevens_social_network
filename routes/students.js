@@ -178,6 +178,7 @@ router
                 return;
             } else {
                 let profileId = req.session.user._id;
+                profileId = await valid.id(profileId);
                 let profileData = await studentData.getStudentById(xss(profileId));
                 if (profileData) {
                     return res.status(200).render("myProfile/myProfile", {
@@ -204,6 +205,9 @@ router
                 return;
             } else {
                 await valid.validatePhoneNumber(profileData.phoneNumber);
+                profileData.firstName = await valid.checkString(profileData.firstName, 'firstName');
+                profileData.lastName = await valid.checkString(profileData.lastName, 'lastName');
+                profileId = await valid.id(profileId);
                 profileData.email = await valid.validateEmail(profileData.email);
                 let updateProfile = await studentData.updateStudent(xss(profileId), xss(profileData.firstName), xss(profileData.lastName), xss(profileData.email), xss(profileData.phoneNumber));
                 if (updateProfile.studentInserted == true) {

@@ -14,7 +14,7 @@ module.exports = {
         bannerUrl = await valid.checkString(bannerUrl, "bannerUrl");
         location = await valid.checkString(location, "location");
         perks = await valid.checkString(perks, "perks");
-
+        userId = await valid.id(userId);
         let isUser = await students.getStudentById(userId);
         if (!isUser) {
             throw "User Not Found!!!";
@@ -122,7 +122,6 @@ module.exports = {
                 }
             }
         ]).toArray();
-        // console.log("Details", eventDetail);
         return eventDetail;
     },
 
@@ -132,7 +131,7 @@ module.exports = {
         let showFull = false;
         let isOwner = false;
         id = await valid.id(id);
-        // console.log("_Id", id);
+        userId = await valid.id(userId);
         const eventCollection = await events();
         const event = await eventCollection.findOne({ _id: ObjectId(id) });
         if (!event) {
@@ -195,7 +194,7 @@ module.exports = {
                 }
             }
         ]).toArray();
-        // console.log("event Detail", eventDetail);
+
         if (eventDetail.length > 0) {
             eventDetail[0].isRegistered = isRegistered;
             eventDetail[0].showButton = showButton;
@@ -204,7 +203,7 @@ module.exports = {
             if (eventDetail[0].comments.length > 0) {
                 eventDetail[0].comments = await this.getEventComment(id);
             }
-            // console.log("event Detail", JSON.stringify(eventDetail[0]));
+
             return eventDetail[0];
         } else {
             throw "Event Not Found";
@@ -212,7 +211,7 @@ module.exports = {
     },
     async getEventComment(id) {
         id = await valid.id(id);
-        // console.log("_Id", id);
+
         const eventCollection = await events();
         const eventDetail = await eventCollection.aggregate([
             {
@@ -247,7 +246,7 @@ module.exports = {
 
         ]).toArray();
         if (eventDetail.length > 0) {
-            // console.log(eventDetail);
+
             return eventDetail;
         } else {
             throw "Event Not Found";
@@ -281,12 +280,12 @@ module.exports = {
             comment: comment,
             commentDate: new Date()
         }
-        // console.log("Adding to update")
+
         const updateInfo = await eventsCollection.updateOne(
             { _id: ObjectId(id) },
             { $addToSet: { comments: commentToAdd } }
         );
-        // console.log("Adding to update")
+
         if (!updateInfo.matchedCount && !updateInfo.modifiedCount)
             throw 'Update failed';
 
@@ -371,7 +370,6 @@ module.exports = {
                 color: '#913aa7'
             }
         }).toArray();
-        // console.log("eventDetail", eventParticipated);
         return eventParticipated;
     },
     async getEventById(eventId, userId) {
@@ -380,7 +378,6 @@ module.exports = {
         const eventCollection = await events();
         let eventData = await eventCollection.findOne({ "_id": ObjectId(eventId) });
         if (eventData) {
-            console.log(eventData);
             eventData.eventDate = new Date(eventData.eventDate).toISOString().replace('Z', '');
             return eventData;
         } else {
@@ -393,10 +390,8 @@ module.exports = {
         eventId = await valid.id(eventId);
         userId = await valid.id(userId);
         const eventCollection = await events();
-        console.log("Here in before");
         let eventData = await eventCollection.findOne({ "_id": ObjectId(eventId) });
         if (eventData === null) throw 'No event found with this id.';
-        console.log("Here in after", eventData);
         if (eventData.createdBy.toString() !== userId.toString()) throw 'Unauthorized User..';
 
         let deleteData = await eventCollection.deleteOne({ "_id": ObjectId(eventId) });
@@ -408,7 +403,6 @@ module.exports = {
         let currentDate = new Date();
         let afterFourHours = new Date()
         afterFourHours = afterFourHours.setHours(afterFourHours.getHours() + 4)
-        console.log('Getting');
         const eventCollection = await events();
         let eventData = await eventCollection.aggregate([
             {
