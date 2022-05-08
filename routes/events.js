@@ -24,7 +24,7 @@ router.get('/search', async (req, res) => {
     if (req.session.user) {
         let searchTerm = req.query.searchTerm;
         try {
-            let events = await eventData.getAllActiveEvents(searchTerm);
+            let events = await eventData.getAllActiveEvents(xss(searchTerm));
             return res.status(200).json(events);
         } catch (e) {
             return res.status(400).json(e);
@@ -84,7 +84,7 @@ router.get('/myevents', async (req, res) => {
     if (req.session.user) {
         let userId = req.session.user._id
         userId = await valid.id(userId);
-        let data = await eventData.getMyEvents(userId);
+        let data = await eventData.getMyEvents(xss(userId));
         return res.status(200).render("events/myevents", {
             title: "Create Events",
             logged: true,
@@ -99,7 +99,7 @@ router.get('/stats', async (req, res) => {
     if (req.session.user) {
         let userId = req.session.user._id
         userId = await valid.id(userId);
-        let data = await eventData.getMyEventsForCal(userId);
+        let data = await eventData.getMyEventsForCal(xss(userId));
         return res.status(200).json(data)
     } else {
         return res.redirect('/');
@@ -113,7 +113,7 @@ router.get('/:id', async (req, res) => {
             id = await valid.id(id);
             // console.log("Id", id);
             let userId = req.session.user._id
-            let data = await eventData.getEventDetail(id, userId);
+            let data = await eventData.getEventDetail(xss(id), xss(userId));
             // return res.json(data);
             return res.status(200).render("events/eventsDetail", {
                 title: "Events",
@@ -143,7 +143,7 @@ router.delete('/rsvp/:id', async (req, res) => {
             let userId = req.session.user._id
             userId = await valid.id(userId);
             // let data = await eventData.getEventDetail(id, userId);
-            let removeParticipant = await eventData.removeParticipant(id, userId);
+            let removeParticipant = await eventData.removeParticipant(xss(id), xss(userId));
             // return res.json(data);
             if (removeParticipant) {
                 res.status(200).json({ deleted: true });
@@ -171,7 +171,7 @@ router.get('/edit/:id', async (req, res) => {
             let userId = req.session.user._id;
             eventId = await valid.id(eventId);
             userId = await valid.id(userId);
-            let data = await eventData.getEventById(eventId, userId);
+            let data = await eventData.getEventById(xss(eventId), xss(userId));
             return res.status(200).render('events/eventEdit', {
                 title: "Edit Event",
                 logged: true,
@@ -234,7 +234,7 @@ router.get('/chats/:id', async (req, res) => {
             let id = req.params.id;
             id = await valid.id(id);
             // console.log("Id", id);
-            let data = await eventData.getEventComment(id);
+            let data = await eventData.getEventComment(xss(id));
             return res.status(200).json(data);
 
         } catch (e) {
@@ -252,7 +252,7 @@ router.post('/chats/:id', async (req, res) => {
             id = await valid.id(id);
             let comment = req.body.comment;
             let userId = req.session.user._id;
-            let data = await eventData.addCommentToEvent(id, comment, userId);
+            let data = await eventData.addCommentToEvent(xss(id), xss(comment), xss(userId));
             return res.status(200).json(data);
         } catch (e) {
             return res.status(400).json({ error: e });
@@ -269,7 +269,7 @@ router.post('/rsvp/:id', async (req, res) => {
             id = await valid.id(id);
             // let comment = req.body.comment;
             let userId = req.session.user._id;
-            let data = await eventData.rsvpEvent(id, userId);
+            let data = await eventData.rsvpEvent(xss(id), xss(userId));
             if (data) {
                 return res.redirect('/events/' + id);
             }
@@ -294,7 +294,7 @@ router.delete('/:id', async (req, res) => {
         }
         try {
             console.log("going to data");
-            const deletedInfo = await eventData.deleteEvent(eventId, userId);
+            const deletedInfo = await eventData.deleteEvent(xss(eventId), xss(userId));
             if (deletedInfo) {
                 return res.status(200).json({ deleted: true });
             }

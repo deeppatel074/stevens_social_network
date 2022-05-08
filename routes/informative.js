@@ -30,7 +30,7 @@ router.get('/post', async (req, res) => {
         let my = req.query.my;
         let studentId = req.session.user._id;
         try {
-            const posts = await informativeData.getAllPost(search, my, studentId);
+            const posts = await informativeData.getAllPost(xss(search), xss(my), xss(studentId));
             return res.status(200).json(posts);
         } catch (e) {
             return res.status(404).render("errors/errors", {
@@ -50,7 +50,7 @@ router.get('/post/:id', async (req, res) => {
         try {
             let id = req.params.id;
             id = await valid.id(id);
-            let postDetails = await informativeData.getPost(id);
+            let postDetails = await informativeData.getPost(xss(id));
             return res.status(200).render("informative/discussionDetail", {
                 title: "Post",
                 logged: true,
@@ -78,7 +78,7 @@ router.post('/post/:id', async (req, res) => {
             comment = await valid.checkString(comment, 'comment');
             userId = await valid.checkSessionId(userId);
             id = await valid.id(id);
-            let postDetails = await informativeData.addCommentsToPost(id, comment, userId);
+            let postDetails = await informativeData.addCommentsToPost(xss(id), xss(comment), xss(userId));
             if (postDetails) {
                 return res.status(200).json({
                     isSuccess: true
