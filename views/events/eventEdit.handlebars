@@ -1,5 +1,13 @@
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a class="bitem" onclick="history.back()">Back</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Edit Event</li>
+        </ol>
+    </div>
+</nav>
 <div class="signup-box">
-    <h1 class="h3 mb-0 centerHead">Edit Event</h1>
+    <h1 class="h3 mb-0 centerHead bold">Edit Event</h1>
     <div class="errors">
         {{#if errors}}
         {{errors}}
@@ -15,8 +23,7 @@
             required>{{eventsPostData.description}}</textarea>
 
         <label for="eventDate">Event Date Time</label>
-        <input type="datetime-local" id="eventDate" name="eventDate" placeholder="Event Date"
-            value="{{eventsPostData.eventDate}}" required>
+        <input type="datetime-local" id="eventDate" name="eventDate" value="{{eventsPostData.eventDate}}" required>
 
         <label for="location">Event Location</label>
         <input type="text" id="location" name="location" placeholder="Event Location"

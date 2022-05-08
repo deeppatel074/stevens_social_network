@@ -11,7 +11,7 @@
     }
     postForm.submit((event) => {
         event.preventDefault();
-        submitButton.prop('disabled', true);
+        // submitButton.prop('disabled', true);
 
         let info = {
             title: titleInput.val().trim(),
@@ -76,7 +76,7 @@
             $('.table-body').append(`
                 <tr class="clickRow" id="${element._id}" data-href="/informative/post/${element._id}">
                     <td>
-                        <h2 class="h6 mb-0">${element.title}</h2>
+                        <h2 class="h6 mb-0 bold">${element.title}</h2>
                         <p class="descriptionTd mb-0">${element.description}</p>
                     </td>
                     <td>${element.totalComments}</td>

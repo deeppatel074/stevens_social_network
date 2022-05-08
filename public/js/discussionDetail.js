@@ -10,7 +10,7 @@
     }
     postForm.submit((event) => {
         event.preventDefault();
-        submitButton.prop('disabled', true);
+        // submitButton.prop('disabled', true);
 
         let info = {
             comment: commentInput.val().trim()

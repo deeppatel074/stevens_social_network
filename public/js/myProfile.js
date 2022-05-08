@@ -26,7 +26,7 @@
     saveButton.submit((event) => {
         let hasErrors = false;
         event.preventDefault();
-        saveButton.prop('disabled', true);
+        // saveButton.prop('disabled', true);
         let info = {
             firstName: firstName.val().trim(),
             lastName: lastName.val().trim(),

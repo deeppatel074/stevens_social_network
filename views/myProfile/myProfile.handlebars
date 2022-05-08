@@ -6,7 +6,7 @@
                     <div class="card-body">
                         <div class="d-flex flex-column align-items-center text-center">
                             <img id="myProfileImg" src="/public/images/profiles/{{studentPostData.profileUrl}}"
-                                alt="Admin" class="rounded-circle p-1 bg-primary" style="max-width:50%">
+                                alt="My Profile Image" class="rounded-circle p-1 bg-primary" style="max-width:50%">
                             <div class="mt-3">
                                 <h1 class="h2 centerHead">{{studentPostData.firstName}} {{studentPostData.lastName}}
                                 </h1>
@@ -59,7 +59,7 @@
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <input type="number" id="phoneNumber" name="phoneNumber" class="form-control"
-                                        value="{{studentPostData.phoneNumber}}" /required>
+                                        value="{{studentPostData.phoneNumber}}" required />
                                 </div>
                             </div>
                             <div class="row">

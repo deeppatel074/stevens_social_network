@@ -13,7 +13,7 @@
     signupForm.submit((event) => {
         let hasErrors = false;
         event.preventDefault();
-        submitButton.prop('disabled', true);
+        // submitButton.prop('disabled', true);
         let info = {
             firstName: firstName.val().trim(),
             lastName: lastName.val().trim(),

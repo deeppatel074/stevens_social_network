@@ -7,7 +7,7 @@
     </div>
 </nav>
 <div class="row">
-    <div class="alert alert-danger alert-dismissible fade show" id="error" role="alert" hidden="true">
+    <div class="alert alert-danger alert-dismissible fade show" id="error" role="alert" hidden>
     </div>
     <!--Aside Section-->
     {{#if data.isRegistered}}
@@ -24,7 +24,8 @@
                                     <div class="chatContainer">
                                         <img src="/public/images/profiles/{{this.commentBy.0.profileUrl}}" alt="Avatar"
                                             style="width:100%;">
-                                        <h1 class="h6">{{this.commentBy.0.firstName}} {{this.commentBy.0.lastName}}
+                                        <h1 class="h6 mb-0 bold">{{this.commentBy.0.firstName}}
+                                            {{this.commentBy.0.lastName}}
                                         </h1>
                                         <p style="text-align: left; padding-top:0px">{{this.comment}}</p>
                                         <span class="time-right">{{this.commentDate}}</span>
@@ -63,7 +64,7 @@
         <div class="card postContainer">
             <div class="row">
                 <div class="col">
-                    <h1 class="h2 mb-0 postTitle">{{data.title}}</h1>
+                    <h1 class="h2 mb-0 postTitle bold">{{data.title}}</h1>
                     {{#if data.isRegistered}}
                     <span class="badge rounded-pill bg-success">Attending</span>
                     {{else}}
@@ -107,12 +108,22 @@
             {{#if data.isOwner}}
             <div class="row" style="margin-top: 20px;">
                 <div class="col">
-                    <button type="button" class="btn btn-primary edit">Edit
+                    <button class="btn btn-primary edit">Edit
                         Event</button>
-                    <button type=" button" class="btn btn-danger" data-bs-toggle="modal"
-                        data-bs-target="#deleteModel">Delete Event</button>
+                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModel">Delete
+                        Event</button>
                 </div>
             </div>
+            {{else}}
+            {{#if data.isRegistered}}
+            <div class="row" style="margin-top: 20px;">
+                <div class="col">
+                    Not able to attend?
+                    <button class="btn btn-primary updateRSVP">Update
+                        RSVP</button>
+                </div>
+            </div>
+            {{/if}}
             {{/if}}
         </div>
     </div>
@@ -167,14 +178,14 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title h5" id="exampleModalLabel">Modal title</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 Do you really want to delete this event?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger deleteEve">Delete</button>
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button class="btn btn-danger deleteEve">Delete</button>
             </div>
         </div>
     </div>

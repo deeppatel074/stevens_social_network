@@ -1,4 +1,3 @@
-const axios = require("axios");
 const mongoCollections = require('../config/mongoCollections.js');
 const students = mongoCollections.students;
 const { ObjectId } = require('mongodb');
@@ -34,26 +33,34 @@ module.exports = {
         }
         const insertInfo = await studentsCollection.insertOne(newStudent);
         if (!insertInfo.acknowledged || !insertInfo.insertedId) {
-            return ({ studentInserted: false })
+            return null
         }
         else {
-            return ({ studentInserted: true })
+            const newId = insertInfo.insertedId.toString();
+            const student = await this.getStudentById(newId.toString());
+            return student
         }
     },
-    
+
     async updateStudent(profileId, firstName, lastName, email, phoneNumber) {
         firstName = await valid.checkString(firstName, "firstName");
         lastName = await valid.checkString(lastName, "lastName");
         await valid.validatePhoneNumber(phoneNumber);
         email = await valid.validateEmail(email);
-        
+
         const studentsCollection = await students();
-        const updateProfile = await studentsCollection.updateOne({ _id: ObjectId(profileId) }, { $set: { firstName: firstName, lastName: lastName, email: email, phoneNumber: phoneNumber } });
-        if (!updateProfile.acknowledged) {
-            return ({ studentInserted: false })
+        const student = await studentsCollection.findOne({ email: { '$regex': `^${email}$`, '$options': 'i' } });
+        if (student) {
+            throw `Student email ID  is already being used`;
         }
         else {
-            return ({ studentInserted: true })
+            const updateProfile = await studentsCollection.updateOne({ _id: ObjectId(profileId) }, { $set: { firstName: firstName, lastName: lastName, email: email, phoneNumber: phoneNumber } });
+            if (!updateProfile.acknowledged) {
+                return ({ studentInserted: false })
+            }
+            else {
+                return ({ studentInserted: true })
+            }
         }
     },
 
@@ -95,5 +102,4 @@ module.exports = {
             throw 'User not registered';
         }
     }
-
 }

@@ -29,10 +29,12 @@ module.exports = {
         const informativeCollection = await informative();
         const insertInfo = await informativeCollection.insertOne(dataToInsert);
         if (!insertInfo.acknowledged || !insertInfo.insertedId) {
-            return false;
+            return null
         }
         else {
-            return true;
+            const newId = insertInfo.insertedId.toString();
+		    const post = await this.getPost(newId)
+            return post
         }
     },
     async getAllPost(searchParam, my, studentId) {
@@ -157,7 +159,7 @@ module.exports = {
                     _id: 0,
                     commentBy: "$discussion.commentBy",
                     comment: "$discussion.comment",
-                    commentDate: { $dateToString: { format: "%Y-%m-%d %H:%M:%S", date: "$createdAt", timezone: "America/New_York" } }
+                    commentDate: { $dateToString: { format: "%Y-%m-%d %H:%M:%S", date: "$discussion.commentDate", timezone: "America/New_York" } }
                 }
             }
         ]).toArray();

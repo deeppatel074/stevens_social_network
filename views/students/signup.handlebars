@@ -1,5 +1,5 @@
 <div class="signup-box">
-  <h1 class="centerHead">Sign Up</h1>
+  <h1 class="centerHead bold">Sign Up</h1>
   <div class="errors">
     {{#if errors}}
     {{errors}}
@@ -31,7 +31,7 @@
       value="{{studentPostData.phoneNumber}}" required />
 
     <label for="profileUrl">Upload Profile Picture</label>
-    <input type="file" id="profileUrl" name="profileUrl" placeholder="Profile Picture" capture />
+    <input type="file" id="profileUrl" name="profileUrl" accept="image/png, image/jpeg" />
 
     <button id="submitButton" class="buttonRegister" type="submit">Submit</button>
   </form>

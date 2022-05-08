@@ -7,7 +7,7 @@
 
     loginForm.submit((event) => {
         event.preventDefault();
-        submitButton.prop('disabled', true);
+        // submitButton.prop('disabled', true);
 
         let info = {
             email: emailInput.val().trim(),

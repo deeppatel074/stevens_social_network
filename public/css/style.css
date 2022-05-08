@@ -187,6 +187,10 @@ p {
   text-align: left;
 }
 
+.bold {
+  font-weight: bold;
+}
+
 .description {
   text-align: justify;
   font-size: 18px;
@@ -244,26 +248,15 @@ p {
   color: #625d5d;
 }
 
-/*
-#informative {
-  font-family: Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-#informative td,
-#informative th {
-  border: 1px solid #ddd;
-  padding: 8px;
-}
-
-#informative th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #0474bc;
-  color: white;
+/* .h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-weight: 0;
 } */
+
 .bitem {
   color: #0768a5;
   cursor: pointer;
@@ -383,6 +376,8 @@ p {
 
 #myProfileImg {
   border-radius: 50% !important;
+  width: 170px;
+  height: 168px;
 }
 
 .text-muted {

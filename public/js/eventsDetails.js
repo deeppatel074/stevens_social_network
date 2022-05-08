@@ -18,7 +18,7 @@
     let submitButton = $('#submit-comment');
     postForm.submit((event) => {
         event.preventDefault();
-        submitButton.prop('disabled', true);
+        // submitButton.prop('disabled', true);
 
         let info = {
             comment: commentInput.val().trim()
@@ -90,7 +90,7 @@
                                     <div class="chatContainer">
                                         <img src="/public/images/profiles/${element.commentBy[0].profileUrl}" alt="Avatar"
                                             style="width:100%;">
-                                        <h1 class="h6">${element.commentBy[0].firstName} ${element.commentBy[0].lastName}</h1>
+                                        <h1 class="h6 bold">${element.commentBy[0].firstName} ${element.commentBy[0].lastName}</h1>
                                         <p style="text-align: left; padding-top:0px">${element.comment}</p>
                                         <span class="time-right">${element.commentDate}</span>
                                     </div>
@@ -101,5 +101,26 @@
     }
     $('.edit').on("click", function () {
         window.location = `/events/edit/${id}`
+    });
+    $('.updateRSVP').on("click", function () {
+        var requestConfig = {
+            method: 'DELETE',
+            url: `/events/rsvp/${id}`,
+            error: function (e) {
+                var newElement = $(e);
+                let errorMsg = newElement[0].responseJSON.error
+                $('#deleteModel').modal('hide');
+                $('#error').prop('hidden', false);
+                $('#error').html(`${errorMsg}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>`)
+            },
+            success: function (s) {
+                var newElement = $(s);
+                if (newElement[0].deleted) {
+                    window.location.reload();
+                }
+            }
+        };
+        $.ajax(requestConfig);
     });
 })(jQuery);
