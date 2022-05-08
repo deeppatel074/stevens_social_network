@@ -93,16 +93,27 @@ router
     })
 
     .post(upload.single("profileUrl"), async (req, res) => {
+
         const studentPostData = req.body;
-        let profilePic = req.file.filename;
+        let profilePic;
 
         try {
             studentPostData.firstName = await valid.checkString(studentPostData.firstName, "firstName");
             studentPostData.lastName = await valid.checkString(studentPostData.lastName, "lastName");
-            await valid.validatePhoneNumber(studentPostData.phoneNumber);
             studentPostData.email = await valid.validateEmail(studentPostData.email);
             await valid.validatePassword(studentPostData.password);
             await valid.validateConfirmPassword(studentPostData.password, studentPostData.confirmPassword);
+            await valid.validatePhoneNumber(studentPostData.phoneNumber);
+            if (req.file) {
+                if (req.file.mimetype === "image/jpeg" || req.file.mimetype === "image/png") {
+                    profilePic = req.file.filename;
+                } else {
+                    throw "Profile image should be jpeg, png"
+                }
+            } else {
+                throw "Profile Picture is required"
+            }
+
         } catch (e) {
             res.status(400).render("students/signup", {
                 title: "Errors",

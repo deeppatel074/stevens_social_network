@@ -9,11 +9,10 @@ module.exports = {
     async createStudent(firstName, lastName, email, password, phoneNumber, profileUrl) {
         firstName = await valid.checkString(firstName, "firstName");
         lastName = await valid.checkString(lastName, "lastName");
-        await valid.validatePhoneNumber(phoneNumber);
         email = await valid.validateEmail(email);
         await valid.validatePassword(password);
+        await valid.validatePhoneNumber(phoneNumber);
         await valid.checkString(profileUrl, "Profile Picture");
-        // let utc = new Date().toJSON().slice(0,10).replace(/-/g,'/');
         const hash = await bcrypt.hash(password, saltRounds);
         let newStudent = {
             firstName: firstName,
