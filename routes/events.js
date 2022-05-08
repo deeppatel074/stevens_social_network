@@ -182,6 +182,8 @@ router.post('/edit/:id', async (req, res) => {
         let eventId = req.params.id;
         let userId = req.session.user._id;
         const eventsPostData = req.body;
+        eventsPostData._id = eventId;
+        eventsPostData.eventLocation = eventsPostData.location;
 
         try {
             eventsPostData.title = await valid.checkString(eventsPostData.title, "title");

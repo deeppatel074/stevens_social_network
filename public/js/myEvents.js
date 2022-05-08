@@ -74,55 +74,69 @@ mobiscroll.util.http.getJson('/events/stats', function (events) {
         if (!info.title || !info.description || !info.eventDate || !info.participantLimit || !info.bannerUrl || !info.perks || !info.location) {
             $(alert).text("*All fields are required");
             hasErrors = true;
-        }
+        } else {
+            //check title
+            if (info.title.length < 1) {
+                $(alert).text("Title should not be empty");
+                hasErrors = true;
+            } else {
+                //check description 
+                if (info.description.length < 1) {
+                    $(alert).text("Description should not be empty");
+                    hasErrors = true;
+                } else {
 
-        //check title
-        if (info.title.length < 1) {
-            $(alert).text("Title should not be empty");
-            hasErrors = true;
-        }
-        //check description 
-        if (info.description.length < 1) {
-            $(alert).text("Description should not be empty");
-            hasErrors = true;
-        }
+                    //Check eventDate
+                    if (Date.parse(info.eventDate) === NaN) {
+                        $(alert).text(`eventDate is not a date.`);
+                        hasErrors = true;
+                    } else {
+                        let x = new Date(info.eventDate);
+                        // console.log();
+                        if (!(x instanceof Date && !isNaN(x.valueOf()))) {
+                            $(alert).text(`Date Input is not valid date `);
+                            hasErrors = true;
+                        } else {
+                            info.eventDate = new Date(info.eventDate).toISOString();
+                            let today = new Date().toISOString();
+                            if (info.eventDate < today) {
+                                $(alert).text(`Event can't be held before the current date `);
+                                hasErrors = true;
+                            } else {
+                                //check street
+                                if (info.location.length < 1) {
+                                    $(alert).text("Street should not be empty");
+                                    hasErrors = true;
+                                } else {
+                                    //check perks
+                                    if (info.perks.length < 1) {
+                                        $(alert).text("City should not be empty");
+                                        hasErrors = true;
+                                    } else {
+                                        // Check Participant LImit
 
-
-        //Check eventDate
-        if (Date.parse(info.eventDate) === NaN) {
-            $(alert).text(`eventDate is not a date.`);
-            hasErrors = true;
-        }
-        info.eventDate = new Date(info.eventDate).toISOString();
-        let today = new Date().toISOString();
-        if (info.eventDate < today) {
-            $(alert).text(`Event can't be held before the current date `);
-            hasErrors = true;
-        }
-
-
-        //check street
-        if (info.location.length < 1) {
-            $(alert).text("Street should not be empty");
-            hasErrors = true;
-        }
-        //check perks
-        if (info.perks.length < 1) {
-            $(alert).text("City should not be empty");
-            hasErrors = true;
-        }
-        // Check Participant LImit
-
-        if (!info.participantLimit) {
-            $(alert).text(`Enter Participant Limit`);
-        }
-        if (isNaN(info.participantLimit)) {
-            $(alert).text(`Participant Limit should be a number`);
-        }
-        let participantLimitIntValue = Number(info.participantLimit)
-        if (participantLimitIntValue < 2) {
-            $(alert).text(`Limit can't be less than 2`);
-            hasErrors = true;
+                                        if (!info.participantLimit) {
+                                            $(alert).text(`Enter Participant Limit`);
+                                            hasErrors = true;
+                                        } else {
+                                            if (isNaN(info.participantLimit)) {
+                                                $(alert).text(`Participant Limit should be a number`);
+                                                hasErrors = true;
+                                            } else {
+                                                let participantLimitIntValue = Number(info.participantLimit)
+                                                if (participantLimitIntValue < 2) {
+                                                    $(alert).text(`Limit can't be less than 2`);
+                                                    hasErrors = true;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
         if (!hasErrors) {
             eventRegistrationForm.unbind().submit();

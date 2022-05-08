@@ -21,12 +21,11 @@
     function bindEventsToTable(events) {
         $.each(events, (key, element) => {
             $('.eventsData').append(`
-            <div class="card clickRow" data-href="/events/${element._id}">
+            <div class="card clickRow" style="width: 75%;margin:auto; margin-top:20px;" data-href="/events/${element._id}">
             <div class="card-body">
                 <div class="row">
                     <div class="col-4">
-                        <img src="/public/images/banners/${element.bannerUrl}" class="card-img-top" alt="${element.title}"
-                            style="width: 65%;">
+                        <img src="/public/images/banners/${element.bannerUrl}" class="card-img-top" alt="${element.title}">
                     </div>
                     <div class="col-6">
                         <h1 class="card-title h5 bold">${element.title}</h1>

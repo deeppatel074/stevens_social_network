@@ -1,7 +1,8 @@
 (function ($) {
-    var url = window.location.pathname;
-    var id = url.substring(url.lastIndexOf('/') + 1);
+
     function onPageLoad() {
+        var url = window.location.pathname;
+        var id = url.substring(url.lastIndexOf('/') + 1);
         $('.chat-body').html(` `);
         var requestConfig = {
             method: 'GET',
@@ -33,6 +34,8 @@
             hasErrors = true;
         }
         if (!hasErrors) {
+            var url = window.location.pathname;
+            var id = url.substring(url.lastIndexOf('/') + 1);
             var requestConfig = {
                 method: 'POST',
                 url: `/events/chats/${id}`,
@@ -61,6 +64,8 @@
     });
 
     $(".deleteEve").on("click", function () {
+        var url = window.location.pathname;
+        var id = url.substring(url.lastIndexOf('/') + 1);
         var requestConfig = {
             method: 'DELETE',
             url: `/events/${id}`,
@@ -100,9 +105,13 @@
         });
     }
     $('.edit').on("click", function () {
+        var url = window.location.pathname;
+        var id = url.substring(url.lastIndexOf('/') + 1);
         window.location = `/events/edit/${id}`
     });
     $('.updateRSVP').on("click", function () {
+        var url = window.location.pathname;
+        var id = url.substring(url.lastIndexOf('/') + 1);
         var requestConfig = {
             method: 'DELETE',
             url: `/events/rsvp/${id}`,

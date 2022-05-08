@@ -33,7 +33,7 @@ module.exports = {
         }
         else {
             const newId = insertInfo.insertedId.toString();
-		    const post = await this.getPost(newId)
+            const post = await this.getPost(newId)
             return post
         }
     },
@@ -41,10 +41,6 @@ module.exports = {
         let filter = {};
         if (searchParam) {
             filter.title = {
-                $regex: `${searchParam}`,
-                $options: 'i'
-            };
-            filter.description = {
                 $regex: `${searchParam}`,
                 $options: 'i'
             };
