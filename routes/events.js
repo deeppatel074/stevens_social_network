@@ -40,7 +40,7 @@ router.post('/create', bannerUpload.single("bannerUrl"), async (req, res) => {
     if (req.session.user) {
 
         const eventsPostData = req.body;
-        let bannerPic = req.file.filename;
+        let bannerPic;
         try {
             eventsPostData.title = await valid.checkString(eventsPostData.title, "title");
             eventsPostData.description = await valid.checkString(eventsPostData.description, "description");
@@ -48,6 +48,15 @@ router.post('/create', bannerUpload.single("bannerUrl"), async (req, res) => {
             eventsPostData.participantLimit = await valid.validateLimit(eventsPostData.participantLimit);
             eventsPostData.perks = await valid.checkString(eventsPostData.perks, "perks");
             eventsPostData.location = await valid.checkString(eventsPostData.location, "location");
+            if (req.file) {
+                if (req.file.mimetype === "image/jpeg" || req.file.mimetype === "image/png") {
+                    bannerPic = req.file.filename;
+                } else {
+                    throw "Banner image should be jpeg, png"
+                }
+            } else {
+                throw "Profile Picture is required"
+            }
 
             const { title, description, eventDate, location, perks, participantLimit } = eventsPostData
             let event = await eventData.createEvents(xss(title), xss(description), xss(eventDate), xss(location), xss(perks), xss(participantLimit), xss(bannerPic), xss(req.session.user._id));
