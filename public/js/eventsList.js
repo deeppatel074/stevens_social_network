@@ -29,7 +29,7 @@
                             style="width: 65%;">
                     </div>
                     <div class="col-6">
-                        <h1 class="card-title h5">${element.title}</h1>
+                        <h1 class="card-title h5 bold">${element.title}</h1>
                         <p class="card-text" style="text-align: justify;">${element.description}</p>
                         <div class="row">
                             <div class="col">

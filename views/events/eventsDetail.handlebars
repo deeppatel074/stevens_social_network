@@ -24,7 +24,8 @@
                                     <div class="chatContainer">
                                         <img src="/public/images/profiles/{{this.commentBy.0.profileUrl}}" alt="Avatar"
                                             style="width:100%;">
-                                        <h1 class="h6">{{this.commentBy.0.firstName}} {{this.commentBy.0.lastName}}
+                                        <h1 class="h6 mb-0 bold">{{this.commentBy.0.firstName}}
+                                            {{this.commentBy.0.lastName}}
                                         </h1>
                                         <p style="text-align: left; padding-top:0px">{{this.comment}}</p>
                                         <span class="time-right">{{this.commentDate}}</span>
@@ -63,7 +64,7 @@
         <div class="card postContainer">
             <div class="row">
                 <div class="col">
-                    <h1 class="h2 mb-0 postTitle">{{data.title}}</h1>
+                    <h1 class="h2 mb-0 postTitle bold">{{data.title}}</h1>
                     {{#if data.isRegistered}}
                     <span class="badge rounded-pill bg-success">Attending</span>
                     {{else}}

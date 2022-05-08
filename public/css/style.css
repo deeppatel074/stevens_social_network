@@ -187,6 +187,10 @@ p {
   text-align: left;
 }
 
+.bold {
+  font-weight: bold;
+}
+
 .description {
   text-align: justify;
   font-size: 18px;
@@ -244,14 +248,14 @@ p {
   color: #625d5d;
 }
 
-.h1,
+/* .h1,
 .h2,
 .h3,
 .h4,
 .h5,
 .h6 {
   font-weight: 0;
-}
+} */
 
 .bitem {
   color: #0768a5;
