@@ -91,11 +91,7 @@ module.exports = {
             filter.title = {
                 $regex: `${searchParam}`,
                 $options: 'i'
-            };
-            filter.description = {
-                $regex: `${searchParam}`,
-                $options: 'i'
-            };
+            }
         }
         const eventCollection = await events();
         const eventDetail = await eventCollection.aggregate([
