@@ -42,7 +42,7 @@ async function send(to, subject, data) {
             };
             let info = await transporter.sendMail(mailOptions);
             await transporter.close();
-            return console.log('Message sent: %s', info.messageId);
+            return console.log(`[${new Date().toUTCString()}]: Message sent: %s`, info.messageId);
         } else throw 'Cannot send email : No mailer found';
     } catch (e) {
         return console.log(e);

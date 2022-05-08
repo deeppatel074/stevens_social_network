@@ -344,7 +344,8 @@ p {
   width: 50%;
 } */
 
-#card {
+#card-1,
+#card-2 {
   position: relative;
   display: flex;
   flex-direction: column;

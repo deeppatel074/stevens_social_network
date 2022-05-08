@@ -1,10 +1,10 @@
 <div class="row">
     <!--Aside Section-->
-    <div class="col-12  col-xl-3">
+    <div class="col">
         <aside>
             <div class="row">
                 <div class="col-12 col-sm-6 col-xl-12">
-                    <div class="card mb-3 mb-sm-0 mb-xl-3">
+                    <div class="card mb-3 mb-sm-0 mb-xl-3" style="width: 75%;margin:auto; margin-top:20px;">
                         <div class="card-body">
                             <form id="search-form">
                                 <label id="searchLabel" class="search-form" for="searchDiscussion">
@@ -34,14 +34,15 @@
             </div>
         </aside>
     </div>
-    <div class="col-12 col-xl-9 eventsData">
+</div>
+<div class="row">
+    <div class="col eventsData">
         {{#each events}}
-        <div class="card clickRow" data-href="/events/{{this._id}}">
+        <div class="card clickRow" style="width: 75%;margin:auto; margin-top:20px;" data-href="/events/{{this._id}}">
             <div class="card-body">
                 <div class="row">
                     <div class="col-4">
-                        <img src="/public/images/banners/{{this.bannerUrl}}" class="card-img-top" alt="{{this.title}}"
-                            style="width: 65%;">
+                        <img src="/public/images/banners/{{this.bannerUrl}}" class="card-img-top" alt="{{this.title}}">
                     </div>
                     <div class="col-6">
                         <h1 class="card-title h5 bold">{{this.title}}</h1>

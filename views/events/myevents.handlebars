@@ -1,228 +1,257 @@
 <ul class="nav nav-tabs" style="background-color: white;">
+    {{#if errors}}
     <li class="nav-item">
-        <a class="nav-link active" id="nav-Registered" aria-current="page" onclick="openCity('Registered')">My
+        <a class="nav-link" id="nav-Registered" aria-current="page" onclick="openCity('Registered')">Registered
             Events</a>
     </li>
+    {{else}}
     <li class="nav-item">
-        <a class="nav-link" id="nav-Created" onclick="openCity('Created')">Created</a>
+        <a class="nav-link active" id="nav-Registered" aria-current="page" onclick="openCity('Registered')">Registered
+            Events</a>
     </li>
+    {{/if}}
+    <li class="nav-item">
+        <a class="nav-link" id="nav-Created" onclick="openCity('Created')">My Events</a>
+    </li>
+    {{#if errors}}
+    <li class="nav-item">
+        <a class="nav-link active" id="nav-Create-Event" onclick="openCity('Create-Event')">Create Event</a>
+    </li>
+    {{else}}
     <li class="nav-item">
         <a class="nav-link" id="nav-Create-Event" onclick="openCity('Create-Event')">Create Event</a>
     </li>
+    {{/if}}
     <li class="nav-item">
         <a class="nav-link" id="nav-Calender" onclick="openCity('Calender')">Calender</a>
     </li>
 </ul>
 
 {{!-- Registered view here --}}
-<div id="Registered" class="myEve">
-    <div class="row">
-        <div class="col">
-            {{#each data.eventParticipated}}
-            <div class="card clickRow" data-href="/events/{{this._id}}"
-                style="width: 75%;margin:auto; margin-top:20px;">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-4">
-                            <img src="/public/images/banners/{{this.bannerUrl}}" class="card-img-top"
-                                alt="{{this.title}}" style="width: 65%;">
-                        </div>
-                        <div class="col-6">
-                            <h1 class="card-title h5 bold">{{this.title}}</h1>
-                            <p class="card-text" style="text-align: justify;">{{this.description}}</p>
-                            <div class="row">
-                                <div class="col">
-                                    <p class="card-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
-                                        </svg> {{this.eventLocation}}
-                                    </p>
-                                </div>
-                                <div class="col">
-                                    <p class="card-text">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-basket3-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172zM2.468 15.426.943 9h14.114l-1.525 6.426a.75.75 0 0 1-.729.574H3.197a.75.75 0 0 1-.73-.574z" />
-                                        </svg>
-                                        {{this.perks}}
-                                    </p>
-                                </div>
+{{#if errors}}
+<div id="Registered" class="myEve" style="display: none;">
+    {{else}}
+    <div id="Registered" class="myEve">
+        {{/if}}
+        <div class="row">
+            <div class="col">
+                {{#each data.eventParticipated}}
+                <div class="card clickRow" data-href="/events/{{this._id}}"
+                    style="width: 75%;margin:auto; margin-top:20px;">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-4">
+                                <img src="/public/images/banners/{{this.bannerUrl}}" class="card-img-top"
+                                    alt="{{this.title}}">
                             </div>
-                            <div class="row">
-                                <div class="col">
-                                    <p class="card-text">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-calendar-event-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-3.5-7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z" />
-                                        </svg>
-                                        {{this.eventDate}}
-                                    </p>
+                            <div class="col-6">
+                                <h1 class="card-title h5 bold">{{this.title}}</h1>
+                                <p class="card-text" style="text-align: justify;">{{this.description}}</p>
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="card-text"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                height="16" fill="currentColor" class="bi bi-geo-alt-fill"
+                                                viewBox="0 0 16 16">
+                                                <path
+                                                    d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
+                                            </svg> {{this.eventLocation}}
+                                        </p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="card-text">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-basket3-fill" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172zM2.468 15.426.943 9h14.114l-1.525 6.426a.75.75 0 0 1-.729.574H3.197a.75.75 0 0 1-.73-.574z" />
+                                            </svg>
+                                            {{this.perks}}
+                                        </p>
+                                    </div>
                                 </div>
-                                <div class="col">
-                                    <p class="card-text">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-clock-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" />
-                                        </svg>
-                                        {{this.eventTime}}
-                                    </p>
-                                </div>
-                                <div class="col">
-                                    <p class="card-text">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                                            <path fill-rule="evenodd"
-                                                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
-                                        </svg>
-                                        {{this.totalParticipant}}/{{this.participantLimit}}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {{/each}}
-        </div>
-    </div>
-</div>
-
-
-{{!-- Created view here --}}
-<div id="Created" class="myEve" style="display:none">
-    <div class="row">
-        <div class="col">
-            {{#each data.eventCreated}}
-            <div class="card clickRow" data-href="/events/{{this._id}}"
-                style="width: 75%;margin:auto; margin-top:20px;">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-4">
-                            <img src="/public/images/banners/{{this.bannerUrl}}" class="card-img-top"
-                                alt="{{this.title}}" style="width: 65%;">
-                        </div>
-                        <div class="col-6">
-                            <h1 class="card-title h5 bold">{{this.title}}</h1>
-                            <p class="card-text" style="text-align: justify;">{{this.description}}</p>
-                            <div class="row">
-                                <div class="col">
-                                    <p class="card-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
-                                        </svg> {{this.eventLocation}}
-                                    </p>
-                                </div>
-                                <div class="col">
-                                    <p class="card-text">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-basket3-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172zM2.468 15.426.943 9h14.114l-1.525 6.426a.75.75 0 0 1-.729.574H3.197a.75.75 0 0 1-.73-.574z" />
-                                        </svg>
-                                        {{this.perks}}
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <p class="card-text">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-calendar-event-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-3.5-7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z" />
-                                        </svg>
-                                        {{this.eventDate}}
-                                    </p>
-                                </div>
-                                <div class="col">
-                                    <p class="card-text">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-clock-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" />
-                                        </svg>
-                                        {{this.eventTime}}
-                                    </p>
-                                </div>
-                                <div class="col">
-                                    <p class="card-text">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                                            <path fill-rule="evenodd"
-                                                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
-                                        </svg>
-                                        {{this.totalParticipant}}/{{this.participantLimit}}
-                                    </p>
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="card-text">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-calendar-event-fill"
+                                                viewBox="0 0 16 16">
+                                                <path
+                                                    d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-3.5-7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z" />
+                                            </svg>
+                                            {{this.eventDate}}
+                                        </p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="card-text">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-clock-fill" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" />
+                                            </svg>
+                                            {{this.eventTime}}
+                                        </p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="card-text">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                                <path fill-rule="evenodd"
+                                                    d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                                            </svg>
+                                            {{this.totalParticipant}}/{{this.participantLimit}}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                {{/each}}
             </div>
-            {{/each}}
         </div>
     </div>
-</div>
 
 
-{{!-- Create New view here --}}
-<div id="Create-Event" class="myEve" style="display:none">
-    <div class="signup-box">
-        <h1 class="h3 mb-0 centerHead bold">Create Event</h1>
-        <div class="errors">
-            {{#if errors}}
-            {{errors}}
+    {{!-- Created view here --}}
+    <div id="Created" class="myEve" style="display:none">
+        <div class="row">
+            <div class="col">
+                {{#each data.eventCreated}}
+                <div class="card clickRow" data-href="/events/{{this._id}}"
+                    style="width: 75%;margin:auto; margin-top:20px;">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-4">
+                                <img src="/public/images/banners/{{this.bannerUrl}}" class="card-img-top"
+                                    alt="{{this.title}}">
+                            </div>
+                            <div class="col-6">
+                                <h1 class="card-title h5 bold">{{this.title}}</h1>
+                                <p class="card-text" style="text-align: justify;">{{this.description}}</p>
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="card-text"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                height="16" fill="currentColor" class="bi bi-geo-alt-fill"
+                                                viewBox="0 0 16 16">
+                                                <path
+                                                    d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
+                                            </svg> {{this.eventLocation}}
+                                        </p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="card-text">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-basket3-fill" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172zM2.468 15.426.943 9h14.114l-1.525 6.426a.75.75 0 0 1-.729.574H3.197a.75.75 0 0 1-.73-.574z" />
+                                            </svg>
+                                            {{this.perks}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="card-text">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-calendar-event-fill"
+                                                viewBox="0 0 16 16">
+                                                <path
+                                                    d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-3.5-7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z" />
+                                            </svg>
+                                            {{this.eventDate}}
+                                        </p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="card-text">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-clock-fill" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" />
+                                            </svg>
+                                            {{this.eventTime}}
+                                        </p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="card-text">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                                <path fill-rule="evenodd"
+                                                    d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                                            </svg>
+                                            {{this.totalParticipant}}/{{this.participantLimit}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+
+
+    {{!-- Create New view here --}}
+    {{#if errors}}
+    <div id="Create-Event" class="myEve">
+        {{else}}
+        <div id="Create-Event" class="myEve" style="display:none">
             {{/if}}
+            <div class="signup-box">
+                <h1 class="h3 mb-0 centerHead bold">Create Event</h1>
+                <div class="errors">
+                    {{#if errors}}
+                    {{errors}}
+                    {{/if}}
+                </div>
+                <form id="event-registration-form" action="/events/create" method="POST" enctype="multipart/form-data">
+
+                    <label for="title"> Title</label>
+                    <input type="text" id="title" name="title" placeholder="Title" value="{{eventsPostData.title}}"
+                        required>
+
+                    <label for="description">Description</label>
+                    <textarea style="width: 100%;" id="description" name="description" placeholder="Description"
+                        rows="3" required>{{eventsPostData.description}}</textarea>
+
+                    <label for="eventDate">Event Date Time</label>
+                    <input type="datetime-local" id="eventDate" name="eventDate" value="{{eventsPostData.eventDate}}"
+                        required>
+
+
+                    <label for="location">Event Location</label>
+                    <input type="text" id="location" name="location" value="{{eventsPostData.eventLocation}}"
+                        placeholder=" Event Location" required>
+
+                    <label for="participantLimit">Participant Limit</label>
+                    <input type="number" min="2" id="participantLimit" name="participantLimit"
+                        placeholder="Participant Limit " value="{{eventsPostData.participantLimit}}" required>
+
+                    <label for="perks">Perks</label>
+                    <input type="text" id="perks" name="perks" placeholder="Perks" value="{{eventsPostData.perks}}"
+                        required>
+
+                    <label for="bannerUrl">Upload Banner Picture</label>
+                    <input type="file" id="bannerUrl" name="bannerUrl" accept="image/png, image/jpeg">
+
+                    <button id="submitButtonEventRegister" class="buttonRegister" type="submit">Submit</button>
+
+                </form>
+
+            </div>
         </div>
-        <form id="event-registration-form" action="/events/create" method="POST" enctype="multipart/form-data">
-
-            <label for="title"> Title</label>
-            <input type="text" id="title" name="title" placeholder="Title" value="{{eventsPostData.title}}" required>
-
-            <label for="description">Description</label>
-            <textarea style="width: 100%;" id="description" name="description" placeholder="Description" rows="3"
-                required>{{eventsPostData.description}}</textarea>
-
-            <label for="eventDate">Event Date Time</label>
-            <input type="datetime-local" id="eventDate" name="eventDate" value="{{eventsPostData.eventDate}}" required>
-
-
-            <label for="location">Event Location</label>
-            <input type="text" id="location" name="location" placeholder="Event Location" required>
-
-            <label for="participantLimit">Participant Limit</label>
-            <input type="number" min="2" id="participantLimit" name="participantLimit" placeholder="Participant Limit "
-                value="{{eventsPostData.participantLimit}}" required>
-
-            <label for="perks">Perks</label>
-            <input type="text" id="perks" name="perks" placeholder="Perks" required>
-
-            <label for="bannerUrl">Upload Banner Picture</label>
-            <input type="file" id="bannerUrl" name="bannerUrl" accept="image/png, image/jpeg">
-
-            <button id="submitButtonEventRegister" class="buttonRegister" type="submit">Submit</button>
-
-        </form>
-
-    </div>
-</div>
 
 
 
-{{!-- Calender view here --}}
+        {{!-- Calender view here --}}
 
-<div id="Calender" class="myEve" style="display:none">
-    <div id="demo-desktop-month-view"></div>
-</div>
+        <div id="Calender" class="myEve" style="display:none">
+            <div id="demo-desktop-month-view"></div>
+        </div>
 
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"
-    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous">
-    </script>
-<script src="/public/js/myEvents.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous">
+            </script>
+        <script src="/public/js/myEvents.js"></script>

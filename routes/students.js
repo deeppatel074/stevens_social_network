@@ -93,22 +93,32 @@ router
     })
 
     .post(upload.single("profileUrl"), async (req, res) => {
+
         const studentPostData = req.body;
-        let profilePic = req.file.filename;
+        let profilePic;
 
         try {
             studentPostData.firstName = await valid.checkString(studentPostData.firstName, "firstName");
             studentPostData.lastName = await valid.checkString(studentPostData.lastName, "lastName");
-            await valid.validatePhoneNumber(studentPostData.phoneNumber);
             studentPostData.email = await valid.validateEmail(studentPostData.email);
             await valid.validatePassword(studentPostData.password);
             await valid.validateConfirmPassword(studentPostData.password, studentPostData.confirmPassword);
+            await valid.validatePhoneNumber(studentPostData.phoneNumber);
+            if (req.file) {
+                if (req.file.mimetype === "image/jpeg" || req.file.mimetype === "image/png") {
+                    profilePic = req.file.filename;
+                } else {
+                    throw "Profile image should be jpeg, png"
+                }
+            } else {
+                throw "Profile Picture is required"
+            }
+
         } catch (e) {
             res.status(400).render("students/signup", {
                 title: "Errors",
                 hasErrorsSign: true,
                 errors: e,
-                logged: true,
                 studentPostData: studentPostData
             });
             return;
@@ -129,7 +139,6 @@ router
                 title: "Errors",
                 hasErrorsSign: true,
                 errors: e,
-                logged: true,
                 studentPostData: studentPostData
             });
             return;
@@ -167,6 +176,7 @@ router
                 return;
             } else {
                 let profileId = req.session.user._id;
+                profileId = await valid.id(profileId);
                 let profileData = await studentData.getStudentById(xss(profileId));
                 if (profileData) {
                     return res.status(200).render("myProfile/myProfile", {
@@ -193,6 +203,9 @@ router
                 return;
             } else {
                 await valid.validatePhoneNumber(profileData.phoneNumber);
+                profileData.firstName = await valid.checkString(profileData.firstName, 'firstName');
+                profileData.lastName = await valid.checkString(profileData.lastName, 'lastName');
+                profileId = await valid.id(profileId);
                 profileData.email = await valid.validateEmail(profileData.email);
                 let updateProfile = await studentData.updateStudent(xss(profileId), xss(profileData.firstName), xss(profileData.lastName), xss(profileData.email), xss(profileData.phoneNumber));
                 if (updateProfile.studentInserted == true) {

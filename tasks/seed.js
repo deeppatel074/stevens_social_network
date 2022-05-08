@@ -29,32 +29,32 @@ async function main() {
     let addParticipantsToPoojaEvent = undefined;
     let addParticipantsToVyaqtiEvent = undefined;
     try {
-        jesica = await studentData.createStudent("Jesica", "Bodas", "jbodas@stevens.edu", "jbodas@123", "5513258464", "4.png");
+        jesica = await studentData.createStudent("Jesica", "Bodas", "jbodas@stevens.edu", "jbodas@123", "551-325-8464", "4.png");
     } catch (e) {
         console.log(e);
     }
 
     try {
-        ved = await studentData.createStudent("Ved", "Bhanushali", "vbhanush@stevens.edu", "vbhanush@123", "5513258108", "2.png");
+        ved = await studentData.createStudent("Ved", "Bhanushali", "vbhanush@stevens.edu", "vbhanush@123", "551-325-8108", "2.png");
     } catch (e) {
         console.log(e);
     }
 
     try {
-        pooja = await studentData.createStudent("Pooja", "Hegde", "phegde@stevens.edu", "phegde@123", "5515329628", "11.png");
+        pooja = await studentData.createStudent("Pooja", "Hegde", "phegde@stevens.edu", "phegde@123", "551-532-9628", "11.png");
     } catch (e) {
         console.log(e);
     }
 
 
     try {
-        deep = await studentData.createStudent("Deep", "Patel", "dpatel18@stevens.edu", "dpatel@123", "5514258288", "3.png");
+        deep = await studentData.createStudent("Deep", "Patel", "dpatel18@stevens.edu", "dpatel@123", "551-425-8288", "3.png");
     } catch (e) {
         console.log(e);
     }
 
     try {
-        vyaqti = await studentData.createStudent("Vyaqti", "Vikas", "vsingh22@stevens.edu", "vsingh@123", "5524232288", "6.png");
+        vyaqti = await studentData.createStudent("Vyaqti", "Vikas", "vsingh22@stevens.edu", "vsingh@123", "552-423-2288", "6.png");
     } catch (e) {
         console.log(e);
     }
@@ -364,21 +364,8 @@ async function main() {
     }
 
 
-
-
-    // try{
-    //     let searchResult = await eventData.eventSearch("abc");
-    //     console.log(searchResult);
-
-    // }catch(e){
-    //     console.log(e);
-    // }
-    // try{
-    //     let eventsAll = await eventData.getAllEvents();
-    //     console.log(eventsAll);
-    // }catch(e){
-    //     console.log(e);
-    // }
+    console.log('Done seeding database');
+    await dbConnection.closeConnection();
 }
 
 main();

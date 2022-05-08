@@ -7,17 +7,17 @@ const valid = require("./valid");
 
 module.exports = {
     async createPost(title, description, createdBy) {
-        // console.log("Here in 1.1")
+
         title = await valid.checkString(title, 'title');
         description = await valid.checkString(description, 'description');
         createdBy = await valid.checkSessionId(createdBy);
-        // console.log("Here in 1.2");
+
         let isUser = await students.getStudentById(createdBy);
-        // console.log("Here in 1.3", isUser);
+
         if (!isUser) {
             throw "User Not Found!!!";
         }
-        // console.log("Here in 1.4");
+
         let dataToInsert = {
             title: title,
             description: description,
@@ -25,7 +25,7 @@ module.exports = {
             createdBy: ObjectId(createdBy),
             createdAt: new Date()
         };
-        // console.log("Here in 1.5");
+
         const informativeCollection = await informative();
         const insertInfo = await informativeCollection.insertOne(dataToInsert);
         if (!insertInfo.acknowledged || !insertInfo.insertedId) {
@@ -33,18 +33,15 @@ module.exports = {
         }
         else {
             const newId = insertInfo.insertedId.toString();
-		    const post = await this.getPost(newId)
+            const post = await this.getPost(newId)
             return post
         }
     },
     async getAllPost(searchParam, my, studentId) {
+        studentId = await valid.id(studentId);
         let filter = {};
         if (searchParam) {
             filter.title = {
-                $regex: `${searchParam}`,
-                $options: 'i'
-            };
-            filter.description = {
                 $regex: `${searchParam}`,
                 $options: 'i'
             };
@@ -172,7 +169,7 @@ module.exports = {
         //find post
         const informativeCollection = await informative();
         const post = await informativeCollection.findOne({ _id: ObjectId(postId) });
-        // console.log("Post Found");
+
         if (!post) {
             throw 'Post not found!!';
         }
@@ -182,12 +179,12 @@ module.exports = {
             comment: comment,
             commentDate: new Date()
         }
-        // console.log("Adding to update")
+
         const updateInfo = await informativeCollection.updateOne(
             { _id: ObjectId(postId) },
             { $addToSet: { discussion: commentToAdd } }
         );
-        // console.log("Adding to update")
+
         if (!updateInfo.matchedCount && !updateInfo.modifiedCount)
             throw 'Update failed';
 
