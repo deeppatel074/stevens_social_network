@@ -51,16 +51,16 @@ module.exports = {
         const studentsCollection = await students();
         const student = await studentsCollection.findOne({ email: { '$regex': `^${email}$`, '$options': 'i' } });
         if (student) {
-            throw `Student email ID  is already being used`;
+            if (student._id.toString() !== profileId.toString()) {
+                throw `Student email ID  is already being used`;
+            }
+        }
+        const updateProfile = await studentsCollection.updateOne({ _id: ObjectId(profileId) }, { $set: { firstName: firstName, lastName: lastName, email: email, phoneNumber: phoneNumber } });
+        if (!updateProfile.acknowledged) {
+            return ({ studentInserted: false })
         }
         else {
-            const updateProfile = await studentsCollection.updateOne({ _id: ObjectId(profileId) }, { $set: { firstName: firstName, lastName: lastName, email: email, phoneNumber: phoneNumber } });
-            if (!updateProfile.acknowledged) {
-                return ({ studentInserted: false })
-            }
-            else {
-                return ({ studentInserted: true })
-            }
+            return ({ studentInserted: true })
         }
     },
 

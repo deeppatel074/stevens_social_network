@@ -50,9 +50,9 @@ module.exports = {
         }
         emailDomain = email.split("@");
         domainName = emailDomain[0];
-        if (!alphanumeric(domainName)) {
-            throw `Email Domain Name cannot contain Special Characters`
-        }
+        // if (!alphanumeric(domainName)) {
+        //     throw `Email Domain Name cannot contain Special Characters`
+        // }
         extensionstr = emailDomain[1].toLowerCase();
         if (extensionstr !== "stevens.edu") {
             throw `Not a valid Stevens Email id`;
