@@ -119,7 +119,6 @@ router
                 title: "Errors",
                 hasErrorsSign: true,
                 errors: e,
-                logged: true,
                 studentPostData: studentPostData
             });
             return;
@@ -140,7 +139,6 @@ router
                 title: "Errors",
                 hasErrorsSign: true,
                 errors: e,
-                logged: true,
                 studentPostData: studentPostData
             });
             return;
