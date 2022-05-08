@@ -13,7 +13,7 @@
         let hasErrors = false;
 
         event.preventDefault();
-        submitButton.prop('disabled', true);
+        // submitButton.prop('disabled', true);
         let info = {
             title: title.val().trim(),
             description: description.val().trim(),

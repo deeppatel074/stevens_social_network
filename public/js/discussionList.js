@@ -11,7 +11,7 @@
     }
     postForm.submit((event) => {
         event.preventDefault();
-        submitButton.prop('disabled', true);
+        // submitButton.prop('disabled', true);
 
         let info = {
             title: titleInput.val().trim(),
