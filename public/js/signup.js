@@ -69,7 +69,7 @@
                                 } else {
 
                                     //check phoneNumber
-                                    var regex = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+                                    var regex = /[0-9]{3}-[0-9]{3}-[0-9]{4}/gm;
                                     if (!regex.test(info.phoneNumber)) {
                                         hasErrors = true;
                                         $(alert).text("Phone Number is not valid");

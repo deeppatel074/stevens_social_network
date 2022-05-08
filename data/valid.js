@@ -80,7 +80,7 @@ module.exports = {
     },
 
     async validatePhoneNumber(phoneNumber) {
-        var re = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+        var re = /[0-9]{3}-[0-9]{3}-[0-9]{4}/gm;
         if (!re.test(phoneNumber)) {
             throw `Phone Number is not valid`;
         }
