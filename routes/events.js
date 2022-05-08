@@ -67,12 +67,14 @@ router.post('/create', bannerUpload.single("bannerUrl"), async (req, res) => {
                 return res.status(500).json({ Error: "Internal Server Error" });
             }
         } catch (e) {
+            let dataToSend = await eventData.getMyEvents(xss(req.session.user._id));
             return res.status(400).render("events/myevents", {
                 title: "Errors",
                 hasErrorsEventRegister: true,
                 errors: e,
                 eventsPostData: eventsPostData,
-                logged: true
+                logged: true,
+                data: dataToSend
             });
         }
     } else {
