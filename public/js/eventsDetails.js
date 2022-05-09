@@ -62,6 +62,9 @@
             submitButton.prop('disabled', false);
         }
     });
+    $('.bitem').on("click", function () {
+        location.replace(document.referrer);
+    });
 
     $(".deleteEve").on("click", function () {
         var url = window.location.pathname;
