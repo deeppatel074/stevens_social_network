@@ -80,6 +80,8 @@ module.exports = {
     },
 
     async validatePhoneNumber(phoneNumber) {
+        if (!phoneNumber) throw "Phone number should not be empty";
+        if (phoneNumber.trim().length == 0) throw "Phone number should not be empty";
         var re = /[0-9]{3}-[0-9]{3}-[0-9]{4}/gm;
         if (!re.test(phoneNumber)) {
             throw `Phone Number is not valid`;
